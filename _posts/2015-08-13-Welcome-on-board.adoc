@@ -2,3 +2,10 @@
 :hp-tags: NoTech
 
 NOTE: In progress...
+
+////
+In a nutshell, present the goal of this blog:
+- Java tech
+- Agile tips
+- Craftsmanship
+////
