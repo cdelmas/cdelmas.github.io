@@ -4,23 +4,25 @@
 
 == Let me introduce myself
 
-It's been a while since I decided to have a blog. My recent readings pushed me to create it.
+It's been a while since I decided to have a blog. My recent readings pushed me to create it, finally.
 
 The first thing I think I have to do is to introduce myself. It's always interesting to know who is the author of the post you're reading. It gives context, and helps understand why that article was written.
 
-I'm a software developer, and I love it. I've been writing C, C++, Lisp, and (mostly) Java software for about 7 years, both in industry (printing), biology, and web app back ends.
+I'm a software developer, and I love it. I've been writing C, C++, Lisp, and (mostly) Java software for about 9 years, both in industry (printing), biology, and web app back ends.
 
 == What can you expect from this blog?
-To be honest, I don't have in mind to learn you many things. Maybe some posts will be of some help, yet. Anyway, it will be helpful for myself, as this blog will probably be a kind of log, as I discover things I would like to remember.
+To be honest, I don't have in mind to learn you many things. Maybe some posts will be of some help, yet. Anyway, it will be helpful for myself, as this blog will probably be a log of things I discover and I would like to remember.
 
-I will write about Java, not so surprisingly. Java is probably the most interesting ecosystem for enterprise development nowadays, as you have a huge choice of libraries and frameworks to help you go further. I will explore some of them, so stay tuned.
+I will write about Java, not so surprisingly. Java is probably the most interesting ecosystem for enterprise development nowadays, as you have a huge choice of libraries and frameworks to help you. I will explore some of them, as technological watch is one of my favorite activities.
 
 As technical as the previous (main?) subject will be some craftsmanship techniques. I try (very very...) hard to be a good developer (mastery is far from me at the moment), and I'm always seeking for techniques that can help me. I will expose some of them I believe help me write better software.
 
 Another important thing, readings. Every developer should read books and blogs about _developing software_. Books about that library or that language are good too -- well, not all books are good --, but you should focus on long term books, those which are not bound timely. I have some examples in mind (I will write a post about that).
 
-Finally, I will also write about Agile. This term is overused, and sometimes I hear and see people believing they _do agile_ -- what? I'm not an agile guru or so, but I think I can give my opinion abou that.
+Finally, I will also write about Agile. This term is overused, and sometimes I hear and see people believing they _do agile_ -- what? I'm not an agile guru or so, but I think I can give my opinion about that.
 
 
 == Final word
-Dude, this post is quite longer than I expected at first.
+Dude, this post is quite longer than I expected at first. But it is not too long, so I hope you will read it entirely.
+
+Good reading!
