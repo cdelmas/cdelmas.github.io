@@ -1,6 +1,8 @@
 = Welcome on board
 :hp-tags: NoTech
+:icons: font
 
+icon:rss[]  http://feed43.com/6755227105731855.xml
 
 == Let me introduce myself
 
