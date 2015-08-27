@@ -2,8 +2,6 @@
 :hp-tags: NoTech
 :icons: font
 
-icon:rss[]  http://feed43.com/6755227105731855.xml
-
 == Let me introduce myself
 
 It's been a while since I decided to have a blog. My recent readings pushed me to create it, finally.
@@ -28,3 +26,6 @@ Finally, I will also write about Agile. This term is overused, and sometimes I h
 Dude, this post is quite longer than I expected at first. But it is not too long, so I hope you will read it entirely.
 
 Good reading!
+
+
+RSS feed: icon:rss[] http://feed43.com/6755227105731855.xml
