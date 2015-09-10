@@ -1,0 +1,38 @@
+= A comparison of Microservices Frameworks
+:hp-tags: Tech, Microservices, REST
+
+== Goals
+
+Prerequisites:
+
+* SSL
+* OAuth
+* REST
+* Microservice
+
+Content :
+
+* HTTPS
+* client
+* OAuth
+* HATEOAS
+* Location Header
+* Metrics
+
+== Dropwizard
+
+== Vertx
+
+== Spring Boot
+
+== The others
+
+=== Restlet
+
+=== SparkJava
+
+
+...
+
+
+All the code is available on github (give link).
