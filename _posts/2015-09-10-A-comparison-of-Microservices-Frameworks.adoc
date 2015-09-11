@@ -18,6 +18,8 @@ Content :
 * HATEOAS
 * Location Header
 * Metrics
+* Size of final package
+* Startup time
 
 == Dropwizard
 
