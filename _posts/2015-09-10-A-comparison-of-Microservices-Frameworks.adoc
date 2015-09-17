@@ -5,7 +5,7 @@
 
 Prerequisites:
 
-* SSL
+* HTTPS
 * OAuth
 * REST
 * Microservice
@@ -13,6 +13,7 @@ Prerequisites:
 Content :
 
 * HTTPS
+* dependency injection?
 * client
 * OAuth
 * HATEOAS
