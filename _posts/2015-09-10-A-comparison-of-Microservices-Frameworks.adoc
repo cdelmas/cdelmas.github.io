@@ -10,26 +10,37 @@ One of the biggest advantages of microservices is to answer these concerns: inst
 But there is a counterpart: as you're building a distributed system now, you will have the disadvantages of a distributed system. Building a distributed system as microservices architecture is not that easy, but fortunately there are many frameworks to help you. This article will present some of them.
 
 
-== Goals
+== Requirements
 
-Prerequisites:
+I don't want to make another comparison based on some "Hello World" application. Most of the frameworks provide a simple way to start a server and respond to a simple request with only one line.
 
-* HTTPS
-* OAuth
-* REST
-* Microservice
+But it is not the real life. In the real life, you should not use plain HTTP. You would use REST / HTTPS. You would add headers such as Location after a 201. You add links to your json entities. You would have an HTTPS client too. You should have metrics included, to monitor your application. You have some kind of security to protect the access to your API.
 
-Content :
+Here is a list of what I am going to explore.
 
-* HTTPS
-* dependency injection?
-* client
-* OAuth
-* HATEOAS
-* Location Header
-* Metrics
-* Size of final package
-* Startup time
+* I'm about to build a RESTful API. UI is not considered in this article (note that every framework has a mean to serve static resources easily)
+* Only HTTPS to access the API
+* The API will have two sets of resources (aka two microservices). For simplicity's sake, they will be deployed in the same server, but will communicate over HTTPS.
+* The resource will have json representations
+* Each representation will have at least a self link to the resource
+* After a resource creation, client receive a Location header (the resource's link)
+* The API will be accessible only by people providing a Facebook OAuth token
+* Each API must have a monitoring facility
+* Each service may be packaged as a standalone jar, to be run using java -jar.
+* I will measure the startup time of each server (not that important, but interesting)
+* Finally, I will give the final size of the package.
+
+== The candidates
+
+Here is the list of candidates:
+
+* http://www.dropwizard.io/[Dropwizard]
+* http://vertx.io/[Vertx]
+* http://projects.spring.io/spring-boot/[Spring Boot]
+* http://restlet.com/projects/restlet-framework/[Restlet]
+* http://sparkjava.com/[Spark]
+
+Note that Restlet and Spark doesn't claim to be a MicroServices framework in their documentation, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Dropwizard
 
@@ -43,8 +54,14 @@ Content :
 
 === SparkJava
 
-
 ...
 
+////
+Toute remarque et aide à l'amélioration est bienvenue :)
+////
 
-All the code is available on github (give link).
+== A conclusion
+
+NOTE: TODO blah blah...
+
+All the code is available on github (give link). You are free and encouraged to fork, play with the code and give feedback.
