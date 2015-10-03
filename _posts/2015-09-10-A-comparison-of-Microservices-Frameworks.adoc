@@ -1,6 +1,15 @@
 = A comparison of Microservices Frameworks
 :hp-tags: Tech, Microservices, REST
 
+Microservice is probably one of the most used term nowadays, while we are speaking about software architecture. Although the concepts aren't that new, it is one of the biggest buzzword of the two last years.
+
+To summarize, many people found (or .....) that big monolithic architectures are not very maintainable and extendable when they grow over a certain size. Moreover, they don't scale well (you scale by multiplying big applications), and you can't replace bad old parts easily.
+
+One of the biggest advantages of microservices is to answer these concerns: instead of building an entire application as one block, one can build it as a set of services which will communicate over some kind of messaging system (most of the time, REST / HTTP). Given that, you will be able to replace one piece if you need to, you can scale only one piece because you need to, and so on.
+
+But there is a counterpart: as you're building a distributed system now, you will have the disadvantages of a distributed system. Building a distributed system as microservices architecture is not that easy, but -heureusement- there are many frameworks to help you. This article will present some of them.
+
+
 == Goals
 
 Prerequisites:
