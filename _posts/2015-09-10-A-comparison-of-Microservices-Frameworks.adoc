@@ -40,7 +40,7 @@ Here is the list of candidates:
 * http://restlet.com/projects/restlet-framework/[Restlet]
 * http://sparkjava.com/[Spark] + http://unirest.io/java.html[Unirest] (REST client, Spark doesn't provide a REST client itself)
 
-Note that Restlet and Spark doesn't claim to be a MicroServices framework in their documentation, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
+Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Dropwizard
 
@@ -48,11 +48,9 @@ Note that Restlet and Spark doesn't claim to be a MicroServices framework in the
 
 == Spring Boot
 
-== The others
+== Restlet
 
-=== Restlet
-
-=== SparkJava
+== SparkJava
 
 ...
 
