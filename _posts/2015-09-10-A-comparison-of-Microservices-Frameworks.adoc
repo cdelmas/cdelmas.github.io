@@ -27,6 +27,7 @@ Here is a list of what I am going to evaluate.
 * The API will be accessible only by people providing a Facebook OAuth token
 * Each API must have a monitoring / metrics facility
 * Each service may be packaged as a standalone jar, to be run using `java -jar`.
+* Performance of POST and GET
 * I will measure the startup time of each server (not that important, but interesting)
 * Finally, I will give the final size of the package.
 
