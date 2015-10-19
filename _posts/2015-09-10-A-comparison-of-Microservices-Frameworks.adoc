@@ -46,7 +46,17 @@ Here is the list of candidates:
 Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Dropwizard
-As stated by its website, "`Dropwizard is a Java framework for developing ops-friendly, high-performance, RESTful web services.`". It is a bundle of some successful libraries such as Jetty, Jersey and Jackson. The documentation is very good, I've found everything I needed inside; a good point, I hate being forced to search for minutes (hours?) for something said simple.
+As stated by its website, "`Dropwizard is a Java framework for developing ops-friendly, high-performance, RESTful web services.`". It is a bundle of some successful libraries such as Jetty, Jersey and Jackson. The documentation is very good, I've found everything I needed inside; a good point, as I hate being forced to search for minutes (hours?) for something said simple.
+
+The main mehod is quite simple: you just build an `Application` instance and run it:
+[source,java]
+----
+public static void main(String[] args) throws Exception {
+    new DropwizardApplication().run(args);
+}
+----
+
+The `DropwizardApplication` class contains all the plumbing: resource and health checks registration, guice bootstrapping and Jackson's `ObjectMapper` configuration. It is given an instance of a configuration class (`DropwizardServerConfiguration`) which is a simple POJO ??????? the configuration file passed as parameter to our application. Yes, there is a configuration file (a yaml file).
 
 == Vertx
 
