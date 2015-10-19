@@ -138,9 +138,9 @@ environment.jersey().register(AuthFactory.binder(
 
 So far so good.
 
-=== Metrics
+=== Monitoring
 
-TODO
+Dropwizard has a built-in monitoring system. You can register healthchecks to ensure that the app is up, and each resource can be metered simply using annotations. You can also add custom metrics, using the metrics registry obtained from the `Environment`.
 
 === Conclusion
 
