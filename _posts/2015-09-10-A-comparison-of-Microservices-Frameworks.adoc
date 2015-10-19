@@ -69,7 +69,7 @@ public static void main(String[] args) throws Exception {
 
 The `DropwizardApplication` class contains all the plumbing: resource and health checks registration, guice bootstrapping and Jackson's `ObjectMapper` configuration. It is given an instance of a configuration class (`DropwizardServerConfiguration`) which is a POJO holding the configuration properties read from the file passed as parameter to our application. 
 
-Yes, there is a configuration file (a yaml file): the app is run like that; `java -jar app.jar server config.yml`. The `server` parameter is here to tell Dropwizard to start the server, but you can also manipulate the database. I didn't try this.
+Yes, there is a configuration file (a yaml file): the app is run like that; `java -jar app.jar server config.yml`. The `server` parameter is here to tell Dropwizard to start the server, but you can also manipulate the database (I didn't try this).
 
 === Resources
 
@@ -99,7 +99,9 @@ public class CarResource {
 }
 ----
 
-Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response is straightforward, you just have to read the JAX-RS documentation.
+Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response is straightforward, you just have to read the JAX-RS documentation. 
+
+Dropwizard uses Jackson to serialize the object returned to JSON, so you have nothing to do.
 
 === HTTPS
 
