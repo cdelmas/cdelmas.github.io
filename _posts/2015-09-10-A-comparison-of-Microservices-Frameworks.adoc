@@ -99,6 +99,22 @@ HTTPS is configured in the YAML configuration file. The documentation explains e
 
 ==== REST client
 
+The REST client is built by Guice, as a singleton. Nothing special about that, that API is fluent and simple:
+
+[source,java]
+----
+@Override
+public List<Car> getAllCars(String auth) {
+    WebTarget target = client.target("https://localhost:8443/app/cars");
+    Invocation invocation = target.request(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer " + auth)
+            .build(HttpMethod.GET);
+    Car[] cars = invocation.invoke(Car[].class);
+    return asList(cars);
+}
+----
+
+=== Security
 
 
 
