@@ -45,6 +45,14 @@ Here is the list of candidates:
 
 Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
+== Prerequisites
+
+Each sample run with a simple `java -jar` command. You will need to set some properties to enable ssl: `-Djavax.net.ssl.trustStore=... -Djavax.net.ssl.trustStorePassword=... -Djavax.net.ssl.keyStorePassword=... -Djavax.net.ssl.keyStorePath=...`.
+
+In order to be able to run the samples, you need to create a keystore, and install a self-signed certificate. You will need the Facebook certificate too, and a user token (see http://developers.facebook.com).
+
+Don't forget to modify the configuration files and system properties accordingly. All these steps are explained in the README file.
+
 == Dropwizard
 
 As stated by its website, "`Dropwizard is a Java framework for developing ops-friendly, high-performance, RESTful web services.`". It is a bundle of some successful libraries such as Jetty, Jersey and Jackson. The documentation is very good, I've found everything I needed inside; a good point, as I hate being forced to search for minutes (hours?) for something said simple.
@@ -95,7 +103,7 @@ Note that injection is performed by Guice. It seems that there is a container pr
 
 === HTTPS
 
-HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up. Note that you will need to install a self-signed certificate in your store, and it will run. Sadly, the store password is not encrypted.
+HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up. Sadly, the store password is not encrypted.
 
 ==== REST client
 
@@ -116,7 +124,25 @@ public List<Car> getAllCars(String auth) {
 
 === Security
 
+The authentication requires two things: first, implement the `Authenticator` interface. Note that he single method `authenticate` returns an `Optional<User>`, but not a Java 8's `Optional`, the Guava's one! What a pity... Nevermind. Second, you need to register the authenticator against Jersey:
 
+[source,java]
+----
+environment.jersey().register(AuthFactory.binder(
+                new OAuthFactory<>(guiceBundle.getInjector().getInstance(FacebookTokenAuthenticator.class),
+                        getName() + "-Realm",
+                        User.class)));
+----
+
+So far so good.
+
+=== Metrics
+
+TODO
+
+=== Conclusion
+
+....
 
 
 == Vertx
