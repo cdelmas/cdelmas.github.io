@@ -46,7 +46,10 @@ Here is the list of candidates:
 Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Dropwizard
+
 As stated by its website, "`Dropwizard is a Java framework for developing ops-friendly, high-performance, RESTful web services.`". It is a bundle of some successful libraries such as Jetty, Jersey and Jackson. The documentation is very good, I've found everything I needed inside; a good point, as I hate being forced to search for minutes (hours?) for something said simple.
+
+=== Main
 
 The main mehod is quite simple: you just build an `Application` instance and run it:
 [source,java]
@@ -59,6 +62,44 @@ public static void main(String[] args) throws Exception {
 The `DropwizardApplication` class contains all the plumbing: resource and health checks registration, guice bootstrapping and Jackson's `ObjectMapper` configuration. It is given an instance of a configuration class (`DropwizardServerConfiguration`) which is a POJO holding the configuration properties read from the file passed as parameter to our application. 
 
 Yes, there is a configuration file (a yaml file): the app is run like that; `java -jar app.jar server config.yml`. The `server` parameter is here to tell Dropwizard to start the server, but you can also manipulate the database. I didn't try this.
+
+=== Resources
+
+Under the hood, Dropwizard uses Jersey, so the resources are just POJOs annotated with JAX-RS annotations:
+
+[source,java]
+----
+@Path("/cars/{id}")
+@Produces(MediaType.APPLICATION_JSON)
+public class CarResource {
+
+    @Context
+    UriInfo uriInfo;
+
+    @Inject
+    private CarRepository carRepository;
+
+    @GET
+    public Response byId(@Auth User user, @PathParam("id") int carId) {
+        Optional<Car> car = carRepository.byId(carId);
+        return car.map(c -> {
+            CarRepresentation carRepresentation = new CarRepresentation(c);
+            carRepresentation.addLink(Link.self(uriInfo.getAbsolutePathBuilder().build(c.getId()).toString()));
+            return Response.ok(carRepresentation).build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+}
+----
+
+Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response is straightforward, you just have to read the JAX-RS documentation.
+
+=== HTTPS
+
+HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up. Note that you will need to install a self-signed certificate in your store, and it will run. Sadly, the store password is not encrypted.
+
+==== REST client
+
+
 
 
 
