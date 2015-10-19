@@ -1,11 +1,11 @@
 = A comparison of Microservices Frameworks
 :hp-tags: Tech, Microservices, REST
 
-Microservice is probably one of the most used term nowadays, while we are speaking about software architecture. Although the concepts aren't that new, it is one of the biggest buzzword of the two last years.
+Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren't new, it is one of the biggest buzzword of the two last years.
 
-To summarize, big monolithic architectures tend to become not very maintainable and extendable when they grow over a certain size. Moreover, they don't scale well (you scale by multiplying big applications), and you can't replace bad old parts easily.
+To summarize, big monolithic architectures tend to become not very maintainable and extendable when they grow over a certain size. Moreover, they don't scale well (you scale by multiplying big applications), and you can't replace old parts easily.
 
-One of the biggest advantages of microservices is to address these concerns: instead of building an entire application as one block, one can build it as a set of services which will communicate over some kind of messaging system (most of the time, REST / HTTP). Given that, you will be able to replace one piece if you need to, you can scale only one piece because you need to, and so on.
+One of the biggest advantages of microservices is to address these concerns: instead of building an entire application as one block, one can build it as a set of services which will communicate over some kind of messaging system (most of the time, REST over HTTP). Given that, you will be able to replace one piece if you need to, you can scale only one piece because you need to, and so on.
 
 But there is a counterpart: as you're building a distributed system, you will have the disadvantages of a distributed system. Building a distributed system as microservices architecture is not that easy, but fortunately there are many frameworks to help you. This article will present some of them.
 
@@ -14,12 +14,12 @@ But there is a counterpart: as you're building a distributed system, you will ha
 
 I don't want to make another comparison based on some "Hello World" application. Most of the frameworks provide a simple way to start a server and respond to a simple request with only one line.
 
-But it is not the real life. In the real life, you should not use plain HTTP. You would use REST / HTTPS. You would add headers such as Location after a 201. You add links to your JSON representations. You would have an HTTPS client too. You should have metrics included, to monitor your application. You have some kind of security to protect the access to your API.
+But this is not the real life. In the real life, you should not use plain HTTP. You would use REST / HTTPS and have an HTTPS client. You would add a Location header after a successful creation, and add links to your JSON or XML representations. You should have metrics included, to monitor your application. You have some kind of security to protect the access to your API.
 
 Here is a list of what I am going to evaluate.
 
-* I'm about to build a RESTful API. UI is not considered in this article (note that every framework has a mean to serve static resources easily)
-* Only HTTPS to access the API
+* I'm about to build a tiny RESTful API. UI is not considered in this article (note that every candidate framework has a mean to serve static resources easily)
+* Only use HTTPS to access the API
 * The API will have two sets of resources (aka two microservices). For simplicity's sake, they will be deployed in the same server, but will communicate over HTTPS.
 * The resource will have a JSON representation
 * Each representation will have at least a self link to the resource
@@ -27,8 +27,10 @@ Here is a list of what I am going to evaluate.
 * The API will be accessible only by people providing a Facebook OAuth token
 * Each API must have a monitoring / metrics facility
 * Each service may be packaged as a standalone jar, to be run using `java -jar`.
-* Performance of POST and GET
-* I will measure the startup time of each server (not that important, but interesting)
+* On the performance side, I will measure:
+** request time of POST and GET
+** the startup time of each server (not that important, but interesting)
+** the memory footprint of the application
 * Finally, I will give the final size of the package.
 
 == The candidates
@@ -44,6 +46,7 @@ Here is the list of candidates:
 Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Dropwizard
+
 
 == Vertx
 
