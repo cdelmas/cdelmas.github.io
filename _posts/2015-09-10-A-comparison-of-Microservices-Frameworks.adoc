@@ -144,10 +144,12 @@ Dropwizard has a built-in monitoring system. You can register healthchecks to en
 
 === Conclusion
 
-....
+TO DO
 
 
 == Vertx
+
+"`Vertx is a tool-kit for building reactive applications on the JVM.`". Built with Java 8, it is an asynchronous general purpose tool, ...
 
 == Spring Boot
 
