@@ -49,7 +49,7 @@ Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Re
 
 Each sample run with a simple `java -jar` command. You will need to set some properties to enable ssl: `-Djavax.net.ssl.trustStore=... -Djavax.net.ssl.trustStorePassword=... -Djavax.net.ssl.keyStorePassword=... -Djavax.net.ssl.keyStorePath=...`.
 
-In order to be able to run the samples, you need to create a keystore, and install a self-signed certificate. You will need the Facebook certificate too, and a user token (see http://developers.facebook.com).
+In order to be able to run the samples, you need to create a keystore (see http://www.javacodegeeks.com/2014/07/java-keystore-tutorial.html[this tutorial] for example), and install a self-signed certificate. You will need the Facebook certificate too (see http://serverfault.com/questions/139728/how-to-download-the-ssl-certificate-from-a-website[here] how to get it), and a user token (see https://developers.facebook.com/).
 
 Don't forget to modify the configuration files and system properties accordingly. All these steps are explained in the README file.
 
@@ -67,9 +67,9 @@ public static void main(String[] args) throws Exception {
 }
 ----
 
-The `DropwizardApplication` class contains all the plumbing: resource and health checks registration, guice bootstrapping and Jackson's `ObjectMapper` configuration. It is given an instance of a configuration class (`DropwizardServerConfiguration`) which is a POJO holding the configuration properties read from the file passed as parameter to our application. 
+The `DropwizardApplication` class contains all the plumbing: resource and health checks registration, Guice bootstrapping and Jackson's `ObjectMapper` configuration. It is given an instance of a configuration class (`DropwizardServerConfiguration`) which is a POJO holding the configuration properties read from the YAML file passed as parameter to our application. 
 
-Yes, there is a configuration file (a yaml file): the app is run like that; `java -jar app.jar server config.yml`. The `server` parameter is here to tell Dropwizard to start the server, but you can also manipulate the database (I didn't try this).
+The app is run with parameters: `java -jar app.jar server config.yml`. The `server` parameter is here to tell Dropwizard to start the server, but you can also manipulate the database (I didn't try this).
 
 === Resources
 
@@ -99,13 +99,13 @@ public class CarResource {
 }
 ----
 
-Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response is straightforward, you just have to read the JAX-RS documentation. 
+Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response are straightforward, you just have to read the JAX-RS documentation. 
 
-Dropwizard uses Jackson to serialize the object returned to JSON, so you have nothing to do.
+Dropwizard uses Jackson to serialize the object returned to JSON, so you have nothing special to do... but you have to configure the ObjectMapper to not fail on missing properties (see http://martinfowler.com/bliki/TolerantReader.html[Tolerant Reader]).
 
 === HTTPS
 
-HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up. Sadly, the store password is not encrypted.
+HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up.
 
 ==== REST client
 
@@ -144,12 +144,12 @@ Dropwizard has a built-in monitoring system. You can register healthchecks to en
 
 === Conclusion
 
-TO DO
+While a bit verbose due to all the plumbing involved in the setup, Dropwizard is a nice framework. It provides all the functions needed to build a MicroServices-based application. TO CONTINUE....
 
 
 == Vertx
 
-"`Vertx is a tool-kit for building reactive applications on the JVM.`". Built with Java 8, it is an asynchronous general purpose tool, ...
+"`Vertx is a tool-kit for building reactive applications on the JVM.`". Built with Java 8, it is an asynchronous general purpose tool, build around reactive patterns, with which you can develop in Java of course, but also many languages running on the JVM (Javascript, Scala, Ruby, Python, Clojure).
 
 == Spring Boot
 
