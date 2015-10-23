@@ -151,13 +151,33 @@ While a bit verbose due to all the plumbing involved in the setup, Dropwizard is
 
 == Vertx
 
-"`Vertx is a tool-kit for building reactive applications on the JVM.`". Built with Java 8, it is an asynchronous general purpose tool, build around reactive patterns, with which you can develop in Java of course, but also many languages running on the JVM (Javascript, Scala, Ruby, Python, Clojure).
+"`Vertx is a tool-kit for building reactive applications on the JVM.`". You can develop with it in Java of course, but also many languages running on the JVM (Javascript, Scala, Ruby, Python, Clojure).
 
-
-
-
+It also provides an actors-like system, the "verticles", which allow deployment of independent, concurrent, and potentially written in different language, services communicating over an event bus. As stated by the documentation, you are not forced to use this model (I didn't in this case, however I will give it a try!).
 
 === Main
+
+The framework abstracts low level handling of HTTP, but you need to create the server by hand:
+
+[source,java]
+----
+Vertx vertx = Vertx.create();
+HttpServer server = vertx.createHttpServer(serverOptions);
+----
+
+Maybe you noticed the serverOptions parameter (sure you did!). This is the definition:
+
+[source, java]
+----
+HttpServerOptions serverOptions = new HttpServerOptions()
+                .setSsl(true)
+                .setKeyStoreOptions(new JksOptions()
+                        .setPath(System.getProperty("javax.net.ssl.keyStorePath"))
+                        .setPassword(System.getProperty("javax.net.ssl.keyStorePassword")))
+                .setPort(8090);
+----
+
+This object allows to set the port and SSL properties.
 
 === Resources
 
