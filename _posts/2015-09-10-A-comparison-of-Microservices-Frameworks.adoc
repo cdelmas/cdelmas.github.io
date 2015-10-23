@@ -167,19 +167,7 @@ Vertx vertx = Vertx.create();
 HttpServer server = vertx.createHttpServer(serverOptions);
 ----
 
-Maybe you noticed the serverOptions parameter (sure you did!). This is the definition:
-
-[source, java]
-----
-HttpServerOptions serverOptions = new HttpServerOptions()
-                .setSsl(true)
-                .setKeyStoreOptions(new JksOptions()
-                        .setPath(System.getProperty("javax.net.ssl.keyStorePath"))
-                        .setPassword(System.getProperty("javax.net.ssl.keyStorePassword")))
-                .setPort(8090);
-----
-
-This object allows to set the port and SSL properties. It doesn't automatically get the standard properties, so you have to do it yourself. Not really a problem.
+Maybe you noticed the serverOptions parameter (sure you did!). You have to wait the HTTPS section to speak about that.
 
 The main method creates the HTTP client, set the authentication system and binds "resources" to routes.
 
@@ -230,6 +218,20 @@ By default, Vertx ignores the body, so you have to explicitly say "I want to rea
 Note that this time, there is no dependency injection, all is done manually. Not a big deal.
 
 === HTTPS
+
+Remember the serverOptions in the Main section? This is the definition:
+
+[source, java]
+----
+HttpServerOptions serverOptions = new HttpServerOptions()
+                .setSsl(true)
+                .setKeyStoreOptions(new JksOptions()
+                        .setPath(System.getProperty("javax.net.ssl.keyStorePath"))
+                        .setPassword(System.getProperty("javax.net.ssl.keyStorePassword")))
+                .setPort(8090);
+----
+
+This object allows to set the port and SSL properties. Vertx doesn't automatically get the standard properties, so you have to do it yourself. Not really a problem, in my opinion (less magic, more control).
 
 === REST Client
 
