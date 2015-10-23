@@ -292,10 +292,14 @@ router.route("/*").handler(auth);
 
 === Monitoring
 
+Vertx offers a metrics system, with many different metrics. Of course, you can register your own metrics using the MetricsRegistry.
+
 === Conclusion
 
+Vertx is really complete. It is built on top of Netty, and offers a performant system. As it is written in Java 8, you can write TODO
+
 TODO...
-Its style is really puzzling at first sight for people like me that are not used to asynchronous programming. But once you get the thing, it's probably one of the best tools I ever used.
+As Vertx is asynchronous by nature, you can feel it puzzling at first sight for people like me that are not used to this programming style. But once you get the thing, it's probably one of the best tools I ever used.
 
 == Spring Boot
 
