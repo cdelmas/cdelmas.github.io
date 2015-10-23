@@ -317,6 +317,10 @@ As Vertx is asynchronous by nature, you can feel it puzzling at first sight for 
 
 === Conclusion
 
+I really went fast using Spring Boot. I have just followed the documentation, and all worked as expected, immediately. Maybe it's because it is not the first time I use Spring (but the first time for Boot), but I'm impressed with the ease with which I managed to build the app.
+
+In my opinion, if you need to go fast, don't want too many plumbing code, have a feature complete framework (Spring portfolio is huge), and if annotations don't make you ill, go with Spring Boot. You won't have regrets.
+
 == Restlet
 
 === Main
