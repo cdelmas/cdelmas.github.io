@@ -276,7 +276,7 @@ httpClient.getAbs("https://localhost:8090/cars")
                 .end();
 ----
 
-I already said that you have full control, did I? Well, as you can see, you indeed have full control (remember the raw servlet response?).
+I already said that you have full control, didn't I? Well, as you can see, you indeed have full control (remember the raw servlet response?).
 
 === Security
 
