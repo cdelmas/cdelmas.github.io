@@ -282,7 +282,7 @@ I already said that you have full control, did I? Well, as you can see, you inde
 
 There is an oauth module, but it doesn't fulfill my needs. So again I did it by hand. Fortunately, I found a gist doing exactly what I want, but in Groovy. No problem, I wrote it in Java.
 
-It consists of two classes, a `AuthHandler` and an `AuthProvider`. Once done, simply set the former as handler for all routes:
+It consists of two classes, a `AuthHandler` and an `AuthProvider`. Once done, I just have to set the former as handler for all routes:
 
 [source, java]
 ----
