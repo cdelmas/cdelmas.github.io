@@ -25,7 +25,7 @@ Here is a list of what I am going to evaluate.
 * Each representation will have at least a self link to the resource
 * After a resource creation, client receive a Location header (the resource's link)
 * The API will be accessible only by people providing a Facebook OAuth token
-* Each API must have a monitoring / metrics facility
+* Each API must have a monitoring / metrics facility (not tested though)
 * Each service may be packaged as a standalone jar, to be run using `java -jar`.
 * On the performance side, I will measure:
 ** request time of POST and GET
@@ -280,7 +280,15 @@ I already said that you have full control, did I? Well, as you can see, you inde
 
 === Security
 
-There is an oauth module, but it doesn't fullfil
+There is an oauth module, but it doesn't fulfill my needs. So again I did it by hand. Fortunately, I found a gist doing exactly what I want, but in Groovy. No problem, I wrote it in Java.
+
+It consists of two classes, a `AuthHandler` and an `AuthProvider`. Once done, simply set the former as handler for all routes:
+
+[source, java]
+----
+AuthHandler auth = new BearerAuthHandler(new FacebookOauthTokenVerifier(httpClient));
+router.route("/*").handler(auth);
+----
 
 === Monitoring
 
@@ -343,6 +351,14 @@ Its style is really puzzling at first sight for people like me that are not used
 ////
 Toute remarque et aide à l'amélioration est bienvenue :)
 ////
+
+== Performance comparison
+
+=== Disclaimer
+
+TODO
+
+=== The results
 
 == A conclusion
 It's been a long journey. The study is not as complete as I first wanted, but I guess it's a good start.
