@@ -126,7 +126,7 @@ public List<Car> getAllCars(String auth) {
 }
 ----
 
-It seems that the `Client`, this time, uses the standard properties.
+The `Client`, this time, uses the standard properties.
 
 === Security
 
@@ -179,9 +179,44 @@ HttpServerOptions serverOptions = new HttpServerOptions()
                 .setPort(8090);
 ----
 
-This object allows to set the port and SSL properties.
+This object allows to set the port and SSL properties. It doesn't automatically get the standard properties, so you have to do it yourself. Not really a problem.
+
+The main method creates the HTTP client, set the authentication system and binds "resources" to routes.
 
 === Resources
+
+There is no resource class in Vertx. You just give handlers to routes:
+
+[source, java]
+----
+CarResource carResource = new CarResource(carRepository);
+router.get("/cars/:id").produces("application/json").handler(carResource::byId);
+----
+
+`CarResource` is simply a POJO having a method named `byId` with a `RoutingContext` as parameter:
+
+[source, java]
+----
+public void byId(RoutingContext routingContext) {
+    HttpServerResponse response = routingContext.response();
+    String idParam = routingContext.request().getParam("id");
+    if (idParam == null) {
+        response.setStatusCode(400).end();
+    } else {
+        Optional<Car> car = carRepository.byId(Integer.parseInt(idParam));
+        if (car.isPresent()) {
+            CarRepresentation carRepresentation = new CarRepresentation(car.get());
+            carRepresentation.addLink(self(routingContext.request().absoluteURI()));
+            response.putHeader("content-type", "application/json")
+                    .end(Json.encode(carRepresentation));
+        } else {
+            response.setStatusCode(404).end();
+        }
+    }
+}
+----
+
+Note that this time, there is no dependency injection, all is done manually. Not a big deal.
 
 === HTTPS
 
