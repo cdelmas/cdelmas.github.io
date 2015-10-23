@@ -303,6 +303,10 @@ As Vertx is asynchronous by nature, you can feel it puzzling at first sight for 
 
 == Spring Boot
 
+Spring Boot "takes an opinionated view of building production-ready Spring applications. Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.". 
+
+Who, in the Java world, has never been told about Spring? It has been one the most popular framework ever in Java, so it was not possible to ignore it in this comparison.
+
 === Main
 
 === Resources
