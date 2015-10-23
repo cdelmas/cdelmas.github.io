@@ -155,9 +155,52 @@ While a bit verbose due to all the plumbing involved in the setup, Dropwizard is
 
 == Spring Boot
 
+=== Main
+
+=== Resources
+
+=== HTTPS
+
+=== REST Client
+
+=== Security
+
+=== Monitoring
+
+=== Conclusion
+
 == Restlet
 
+=== Main
+
+=== Resources
+
+=== HTTPS
+
+=== REST Client
+
+=== Security
+
+=== Monitoring
+
+=== Conclusion
+
 == SparkJava
+
+=== Main
+
+=== Resources
+
+=== HTTPS
+
+=== REST Client
+
+=== Security
+
+=== Monitoring
+
+=== Conclusion
+
 
 ...
 
