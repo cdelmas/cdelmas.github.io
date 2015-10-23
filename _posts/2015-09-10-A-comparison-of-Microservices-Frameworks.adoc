@@ -99,15 +99,15 @@ public class CarResource {
 }
 ----
 
-All the underlying HTTP handling is done by the framework, you have no mandatory access to request and response objects. In this case, I create a Response but I could simply return the object; however, the return code would not be the right one (201), so to have full control over it, I prefer that solution. Moreover, the 404 (Status.NOT_FOUND) is set on the response; I could throw an exception instead, and write a mapper to make an adequate response, but it's overkill.
+All the underlying HTTP handling is done by the framework, you have no mandatory access to request and response objects. In this case, the return is a `Response` but I could simply have returned the object; however, in that case the return code would not be the right one (201), so to have full control over it, I prefer that solution. Moreover, the 404 (Status.NOT_FOUND) is set on the response; I could throw an exception instead, and write a mapper to make an adequate response, but it's overkill (and I hate so-called "Business Exceptions").
 
-Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk2), but I didn't managed to make it work. Linking is handmade. 
+Note that injection is performed by Guice. It seems that there is a CDI container provided with Jersey (hk2), but I didn't managed to make it work. Linking is handmade, and quite easy with the `UriInfo` object. 
 
-Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, so you have nothing special to do... but you have to configure the ObjectMapper to not fail on missing properties (see http://martinfowler.com/bliki/TolerantReader.html[Tolerant Reader]).
+Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, so you have nothing special to do... but you have to configure the `ObjectMapper` to disable errors on unknown properties (see http://martinfowler.com/bliki/TolerantReader.html[Tolerant Reader]).
 
 === HTTPS
 
-HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up.
+HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up, and there is no surprise here.
 
 === REST client
 
