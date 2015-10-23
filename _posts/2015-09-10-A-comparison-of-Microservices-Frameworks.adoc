@@ -216,6 +216,17 @@ public void byId(RoutingContext routingContext) {
 }
 ----
 
+As you can see, you have a total control on the response, and no choice about that. No problem, you know what you do, exactly. The JSON encoding is done by Jackson again, and you still have to disable the "fail on unknown property" feature.
+
+Oh, by the way, this will not work without a subtle configuration on the route:
+
+[source,java]
+----
+router.route("/cars*").handler(BodyHandler.create());
+----
+
+By default, Vertx ignores the body, so you have to explicitly say "I want to read it". Otherwise, you don't get the body content.
+
 Note that this time, there is no dependency injection, all is done manually. Not a big deal.
 
 === HTTPS
