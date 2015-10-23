@@ -153,6 +153,27 @@ While a bit verbose due to all the plumbing involved in the setup, Dropwizard is
 
 "`Vertx is a tool-kit for building reactive applications on the JVM.`". Built with Java 8, it is an asynchronous general purpose tool, build around reactive patterns, with which you can develop in Java of course, but also many languages running on the JVM (Javascript, Scala, Ruby, Python, Clojure).
 
+
+
+
+
+=== Main
+
+=== Resources
+
+=== HTTPS
+
+=== REST Client
+
+=== Security
+
+=== Monitoring
+
+=== Conclusion
+
+TODO...
+Its style is really puzzling at first sight for people like me that are not used to asynchronous programming. But once you get the thing, it's probably one of the best tools I ever used.
+
 == Spring Boot
 
 === Main
