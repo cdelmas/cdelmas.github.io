@@ -107,7 +107,7 @@ Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, 
 
 === HTTPS
 
-HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up, and there is no surprise here.
+HTTPS is configured in the YAML configuration file; the framework ignores the standard Java properties. The documentation explains exactly how to set it up, and there is no surprise here.
 
 === REST client
 
@@ -125,6 +125,8 @@ public List<Car> getAllCars(String auth) {
     return asList(cars);
 }
 ----
+
+It seems that the `Client`, this time, uses the standard properties.
 
 === Security
 
