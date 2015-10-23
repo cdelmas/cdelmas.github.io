@@ -73,7 +73,7 @@ The app is run with parameters: `java -jar app.jar server config.yml`. The `serv
 
 === Resources
 
-Under the hood, Dropwizard uses Jersey, so the resources are just POJOs annotated with JAX-RS annotations:
+Under the hood, Dropwizard uses Jersey, so the resources are just POJOs annotated with (a lot of) JAX-RS annotations:
 
 [source,java]
 ----
@@ -99,9 +99,11 @@ public class CarResource {
 }
 ----
 
-Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk), but I didn't managed to make it work. Linking and response are straightforward, you just have to read the JAX-RS documentation. 
+All the underlying HTTP handling is done by the framework, you have no mandatory access to request and response objects. In this case, I create a Response but I could simply return the object; however, the return code would not be the right one (201), so to have full control over it, I prefer that solution. Moreover, the 404 (Status.NOT_FOUND) is set on the response; I could throw an exception instead, and write a mapper to make an adequate response, but it's overkill.
 
-Dropwizard uses Jackson to serialize the object returned to JSON, so you have nothing special to do... but you have to configure the ObjectMapper to not fail on missing properties (see http://martinfowler.com/bliki/TolerantReader.html[Tolerant Reader]).
+Note that injection is performed by Guice. It seems that there is a container provided with Jersey (hk2), but I didn't managed to make it work. Linking is handmade. 
+
+Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, so you have nothing special to do... but you have to configure the ObjectMapper to not fail on missing properties (see http://martinfowler.com/bliki/TolerantReader.html[Tolerant Reader]).
 
 === HTTPS
 
@@ -109,7 +111,7 @@ HTTPS is configured in the YAML configuration file. The documentation explains e
 
 ==== REST client
 
-The REST client is built by Guice, as a singleton. Nothing special about that, that API is fluent and simple:
+The REST client is built by Guice, as a singleton; it is not managed as documented, I didn't managed to make it work this way. Otherwise, nothing special about the client, the API is fluent and simple:
 
 [source,java]
 ----
@@ -136,7 +138,7 @@ environment.jersey().register(AuthFactory.binder(
                         User.class)));
 ----
 
-So far so good.
+So far so good, it works as expected.
 
 === Monitoring
 
