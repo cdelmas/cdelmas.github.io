@@ -109,7 +109,7 @@ Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, 
 
 HTTPS is configured in the YAML configuration file. The documentation explains exactly how to set it up.
 
-==== REST client
+=== REST client
 
 The REST client is built by Guice, as a singleton; it is not managed as documented, I didn't managed to make it work this way. Otherwise, nothing special about the client, the API is fluent and simple:
 
@@ -146,7 +146,7 @@ Dropwizard has a built-in monitoring system. You can register healthchecks to en
 
 === Conclusion
 
-While a bit verbose due to all the plumbing involved in the setup, Dropwizard is a nice framework. It provides all the functions needed to build a MicroServices-based application. TO CONTINUE....
+While a bit verbose due to all the plumbing involved in the setup, Dropwizard is a nice framework. It provides all the functions needed to build a MicroServices-based application. However, to build tiny services, the amount of plumbing required can be too high compared to the business code; I would not recommend to use it in that case. Otherwise, you cannot go wrong!
 
 
 == Vertx
