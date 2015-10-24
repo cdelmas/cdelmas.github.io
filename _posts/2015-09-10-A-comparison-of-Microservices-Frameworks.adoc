@@ -510,6 +510,24 @@ Don't confuse Spark with Apache Spark. It has nothing in common. Spark is a tiny
 
 === Resources
 
+There is no resource class in Spark, only routes. A route is simply a method taking a request and a response as parameters, and can return almost anything as result.
+
+[source, java]
+----
+public String createCar(Request request, Response response) {
+    Car car;
+    try {
+        car = objectMapper.readValue(request.body(), Car.class);
+        carRepository.save(car);
+        response.header("Location", request.url() + "/" + car.getId());
+        response.status(201);
+    } catch (IOException e) {
+        response.status(400);
+    }
+    return "";
+}
+----
+
 === HTTPS
 
 === REST Client
