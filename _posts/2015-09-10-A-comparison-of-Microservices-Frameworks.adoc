@@ -353,7 +353,7 @@ public class CarsController {
      
 ----
 
-Linking is done using the sppring-hateoas module instead of the handmade solution.
+Linking is done using the sppring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn't configure the "ignore unknown property" feature: it is disabled by default!
 
 === HTTPS
 
