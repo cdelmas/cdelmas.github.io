@@ -30,8 +30,7 @@ Here is a list of what I am going to evaluate.
 * On the performance side, I will measure:
 ** request time of POST and GET
 ** the startup time of each server (not that important, but interesting)
-** the memory footprint of the application
-* Finally, I will give the final size of the package.
+** Finally, I will give the size of the package.
 
 == The candidates
 
