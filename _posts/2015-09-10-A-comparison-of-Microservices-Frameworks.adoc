@@ -487,7 +487,11 @@ Restlet uses the standard properties, almost. The keystorePath, surprisingly, do
 
 === REST Client
 
+There is a client provided by Restlet. It is not easy to use, really. After having set the HTTPS properties (with a mix of standard and not), I had to use an interface with an annotated method (a resource-like interface) and wrap it with the client. Well, after all it's a client resource, not a simple HTTP client. I've found this approach a bit complicated.
+
 === Security
+
+To secure the API, 
 
 === Monitoring
 
