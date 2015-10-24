@@ -414,11 +414,76 @@ In my opinion, if you need to go fast, don't want too many plumbing code, have a
 
 == Restlet
 
+"Restlet Framework is the most widely used open source solution for Java developers who want to create and use APIs.". I don't know if Restlet is really the most widely used REST framework, many people heard of it but few use it.
+
 === Main
+
+I decided to use Guice to enable dependency injection. That was my first candidate, and I thought I'd consider it as a criteria.
+
+Nevermind, the main class is pretty simple: 
+
+[source,java]
+----
+public static void main(String[] args) throws Exception {
+    Injector injector = Guice.createInjector(new SelfInjectingServerResourceModule(),
+            new RestletInfraModule(),
+            new CarModule(),
+            new HelloModule());
+    RestComponent component = injector.getInstance(RestComponent.class);
+    component.start();
+}
+----
+
+The `RestComponent` contains all the plumbing, such as route configuration, HTTPS settings, and so on. With Restlet, no configuration file, everything is done using code.
 
 === Resources
 
+With Restlet, you use less annotations than with other frameworks:
+[source,java]
+----
+public class CarsResource extends ServerResource {
+
+    @Inject
+    private CarRepository carRepository;
+
+    @Get("json")
+    public List<CarRepresentation> all() {
+        List<io.github.cdelmas.spike.common.domain.Car> cars = carRepository.all();
+        getResponse().getHeaders().add("total-count", String.valueOf(cars.size()));
+        return cars.stream().map(c -> {
+            CarRepresentation carRepresentation = new CarRepresentation(c);
+            carRepresentation.addLink(Link.self(new Reference(getReference()).addSegment(String.valueOf(c.getId())).toString()));
+            return carRepresentation;
+        }).collect(toList());
+    }
+
+    @Post("json")
+    public void createCar(io.github.cdelmas.spike.common.domain.Car car) {
+        carRepository.save(car);
+        setLocationRef(getReference().addSegment(String.valueOf(car.getId())));
+        setStatus(Status.SUCCESS_CREATED);
+    }
+
+}
+----
+
+This is the first time I have to extend a framework class. Not a big deal yet. Annotations are straightforward to use. Note that you have to set the status, location to the class, not on a response object. The same for headers (`getResponse().getHeaders().add...`). I don't like this approach personally.
+
+The worst thing I had to do (and it's not documented), is the `ObjectMapper` configuration. The code is really tricky: first, I need to write a custom converter (a complete class), and second I need to replace the existing converter after a complete iteration over the converters. Really, really bad...
+
 === HTTPS
+
+Once again, it is very simple to set:
+[source,java]
+----
+getClients().add(Protocol.HTTPS);
+Server secureServer = getServers().add(Protocol.HTTPS, 8043);
+Series<Parameter> parameters = secureServer.getContext().getParameters();
+parameters.add("sslContextFactory", "org.restlet.engine.ssl.DefaultSslContextFactory");
+parameters.add("keyStorePath", System.getProperty("javax.net.ssl.keyStorePath"));        
+----
+
+Restlet uses the standard properties, almost. The keystorePath, surprisingly, doesn't use the standard property. Otherwise, it's quite well documented and easy to do.
 
 === REST Client
 
