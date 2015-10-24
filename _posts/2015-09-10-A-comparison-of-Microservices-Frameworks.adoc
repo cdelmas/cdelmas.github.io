@@ -504,7 +504,7 @@ Restlet is not a Microservices framework. However, it is good as a REST framewor
 
 == SparkJava
 
-Don't 
+Don't confuse Spark with Apache Spark. It has nothing in common. Spark is a tiny Sinatra inspired framework for creating web applications in Java 8 with minimal effort. In effect it is tiny, but very feature rich.
 
 === Main
 
