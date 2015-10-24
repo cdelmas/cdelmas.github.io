@@ -418,9 +418,9 @@ In my opinion, if you need to go fast, don't want too many plumbing code, have a
 
 === Main
 
-I decided to use Guice to enable dependency injection. That was my first candidate, and I thought I'd consider it as a criteria.
+I decided to use Guice to enable dependency injection. That was my first candidate, and I thought I'd consider it as a criteria at first.
 
-Nevermind, the main class is pretty simple: 
+Anyway, the main class is pretty simple: 
 
 [source,java]
 ----
@@ -434,7 +434,7 @@ public static void main(String[] args) throws Exception {
 }
 ----
 
-The `RestComponent` contains all the plumbing, such as route configuration, HTTPS settings, and so on. With Restlet, no configuration file, everything is done using code.
+The `RestComponent` contains all the plumbing, such as route configuration, HTTPS settings, and so on. With Restlet, no configuration file, everything is done using code. I personally prefer this approach.
 
 === Resources
 
@@ -467,7 +467,7 @@ public class CarsResource extends ServerResource {
 }
 ----
 
-This is the first time I have to extend a framework class. Not a big deal yet. Annotations are straightforward to use. Note that you have to set the status, location to the class, not on a response object. The same for headers (`getResponse().getHeaders().add...`). I don't like this approach personally.
+This is the first time I have to extend a framework class. Not a big deal yet. Annotations are straightforward to use. Note that you have to set the status, location to the class, not on a response object. The same for headers (`getResponse().getHeaders().add...`). Attributes and parameters are retrieved from the resource object too. I don't like this approach personally.
 
 The worst thing I had to do (and it's not documented), is the `ObjectMapper` configuration. The code is really tricky: first, I need to write a custom converter (a complete class), and second I need to replace the existing converter after a complete iteration over the converters. Really, really bad...
 
@@ -520,12 +520,6 @@ Restlet is not a Microservices framework. However, it is good as a REST framewor
 === Conclusion
 
 
-...
-
-////
-Toute remarque et aide à l'amélioration est bienvenue :)
-////
-
 == Performance comparison
 
 === Disclaimer
@@ -535,9 +529,9 @@ TODO
 === The results
 
 == A conclusion
-It's been a long journey. The study is not as complete as I first wanted, but I guess it's a good start.
 
+It's been a long journey. The study is not as complete as I first wanted, but it's a good start. I tried all these frameworks after having used JAX-RS for a long time. Some of them are really similar, others are really disconcerting.
 
-NOTE: TODO blah blah...
+In my opinion, you should always try a library or framework before to use it. This is what I've done, and I had a good time. I hope this article will be helpful in a way or another.
 
 All the code is available on github (give link). You are free and encouraged to fork, play with the code and give feedback.
