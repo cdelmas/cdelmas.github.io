@@ -525,6 +525,9 @@ Restlet is not a Microservices framework. However, it is good as a REST framewor
 === Disclaimer
 
 TODO
+Use JMeter to make a big number of posts, then get.
+Bundle size.
+Startup time.
 
 === The results
 
