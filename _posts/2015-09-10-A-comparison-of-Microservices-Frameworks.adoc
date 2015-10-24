@@ -491,11 +491,17 @@ There is a client provided by Restlet. It is not easy to use, really. After havi
 
 === Security
 
-To secure the API, 
+To secure the API, I simply had a guard on the route. The guard runs a verifier, which is a custom one, and, I have to say, it is not straightforward to write it. Once done, all works well. As far as I remember, I had to search on forums to implement the solution.
 
 === Monitoring
 
+Restlet doesn't provide a monitoring facility. It is only a REST framework after all, and is not competiting against Spring Boot or Dropwizard.
+
+Of course, you can add Dropwizard metrics, but it's a lot of additional work.
+
 === Conclusion
+
+Restlet is not a Microservices framework. However, it is good as a REST framework, as long as you don't need to customize it. Then, you will have a lot of troubles, at least I had.
 
 == SparkJava
 
