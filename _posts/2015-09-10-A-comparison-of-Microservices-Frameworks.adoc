@@ -43,7 +43,7 @@ Here is the list of candidates:
 * http://restlet.com/projects/restlet-framework/[Restlet]
 * http://sparkjava.com/[Spark] + http://unirest.io/java.html[Unirest] (REST client, Spark doesn't provide a REST client itself)
 
-Note that Restlet and Spark doesn't claim to be MicroServices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
+Note that Restlet and Spark doesn't claim to be Microservices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn't resist to try it against bigger frameworks like Spring Boot.
 
 == Prerequisites
 
@@ -305,19 +305,106 @@ As Vertx is asynchronous by nature, you can feel it puzzling at first sight for 
 
 Spring Boot "takes an opinionated view of building production-ready Spring applications. Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.". 
 
-Who, in the Java world, has never been told about Spring? It has been one the most popular framework ever in Java, so it was not possible to ignore it in this comparison.
+Who, in the Java world, has never heard of Spring? It has been one the most popular framework ever in Java, so it was not possible to ignore it in this comparison.
 
 === Main
 
+Very hard to do simpler:
+
+[source,java]
+----
+@SpringBootApplication
+public class Main {
+    public static void main(String[] args) {
+
+        SpringApplication.run(Main.class);
+    }
+}
+----
+
+There is a lot of magic. The `@SpringBootApplication` triggers the component scan and configuration of the Spring application.
+
 === Resources
+
+Resource classes are annotated with a component annotation: `@RestController`. Otherwise, it is much like JAX-RS: @RequestMapping for @Path, `ResponseEntity` for `Response` and so on.
+
+[source,java]
+----
+@RestController
+@RequestMapping(value = "/cars", produces = "application/json")
+public class CarsController {
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<CarRepresentation> byId(@PathVariable("id") String carId) {
+        Optional<Car> car = carRepository.byId(Integer.parseInt(carId));
+        return car.map(c -> {
+            CarRepresentation rep = toCarRepresentation(c);
+            return new ResponseEntity<>(rep, HttpStatus.OK);
+        })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    private CarRepresentation toCarRepresentation(Car c) {
+        String carId = String.valueOf(c.getId());
+        CarRepresentation rep = new CarRepresentation(c);
+        rep.add(linkTo(methodOn(CarsController.class).byId(carId)).withSelfRel());
+        return rep;
+    }
+     
+----
+
+Linking is done using the sppring-hateoas module instead of the handmade solution.
 
 === HTTPS
 
+HTTPS is configured in the application.yml (or configuration.properties, as you want) file. It's pretty much like the Dropwizard's one. You just have to follow the documentation.
+
+Note that you can switch the underlying web server, and choose between Tomcat, Jetty and Undertow. In the example, I used Jetty.
+
 === REST Client
+
+The client is RestTemplate. It is very simple to use:
+
+[source,java]
+----
+MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+headers.add("Accept", "application/json");
+headers.add("Authorization", authToken);
+HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(null, headers);
+RestTemplate rest = new RestTemplate();
+ResponseEntity<Car[]> responseEntity = rest.exchange("https://localhost:8443/cars", HttpMethod.GET, requestEntity, Car[].class);
+List<Car> cars = asList(responseEntity.getBody());
+----
+
+Spring Boot uses the standard ssl properties.
 
 === Security
 
+Once again, it pretty simple: you just have to annotate the resource class and configure the endpoint where you can check the token:
+
+[source,java]
+----
+@EnableOAuth2Resource
+@RestController
+public class SampleController {
+	(...)
+}
+----
+
+[source,yaml]
+----
+spring:
+  oauth2:
+    resource:
+      userInfoUri: https://graph.facebook.com/v2.4/me
+      preferTokenInfo: false
+----
+
+`@EnableOAuth2Resource` isn't bundled in Spring Boot, but comes from Spring Cloud Security. 
+
 === Monitoring
+
+Once again, you just have to drop a module to activate the metrics: Spring Boot Actuator. By default, there are metrics registered by the framework, but you can easily add your own. Under the hood, it uses Dropwizard metrics.
 
 === Conclusion
 
