@@ -20,17 +20,13 @@ Here is a list of what I am going to evaluate.
 
 * I'm about to build a tiny RESTful API. UI is not considered in this article (note that every candidate framework has a mean to serve static resources easily)
 * Only use HTTPS to access the API
-* The API will have two sets of resources (aka two microservices). For simplicity's sake, they will be deployed in the same server, but will communicate over HTTPS.
+* The API will have two sets of resources (aka two microservices): a simple hello world resource calling a cars resource to get cars available (what a useless example!). For simplicity's sake, they will be deployed in the same server, but will communicate over HTTPS.
 * The resource will have a JSON representation
 * Each representation will have at least a self link to the resource
 * After a resource creation, client receive a Location header (the resource's link)
 * The API will be accessible only by people providing a Facebook OAuth token
 * Each API must have a monitoring / metrics facility (not tested though)
 * Each service may be packaged as a standalone jar, to be run using `java -jar`.
-* On the performance side, I will measure:
-** request time of POST and GET
-** the startup time of each server (not that important, but interesting)
-** Finally, I will give the size of the package.
 
 == The candidates
 
@@ -289,16 +285,20 @@ AuthHandler auth = new BearerAuthHandler(new FacebookOauthTokenVerifier(httpClie
 router.route("/*").handler(auth);
 ----
 
+[NOTE]
+====
+At the time of publishing, this does not work properly. I will update the article when I find the solution.
+====
+
 === Monitoring
 
 Vertx offers a metrics system, with many different metrics. Of course, you can register your own metrics using the MetricsRegistry.
 
 === Conclusion
 
-Vertx is really complete. It is built on top of Netty, and offers a performant system. As it is written in Java 8, you can write TODO
+Vertx is really complete. It is built on top of Netty, and offers a performant system. As it is written in Java 8, you can write a very elegant code.
 
-TODO...
-As Vertx is asynchronous by nature, you can feel it puzzling at first sight for people like me that are not used to this programming style. But once you get the thing, it's probably one of the best tools I ever used.
+As Vertx is asynchronous by nature, you can feel it puzzling at first sight for people like me that are not used to this programming style. But once you get the thing, it's probably one of the best tools I have ever used.
 
 == Spring Boot
 
@@ -322,6 +322,8 @@ public class Main {
 ----
 
 There is a lot of magic. The `@SpringBootApplication` triggers the component scan and configuration of the Spring application.
+
+Note that you can switch the underlying web server, and choose between Tomcat, Jetty and Undertow. In the example, I used Jetty. This is done by choosing the module you want in the dependency management system (grade in this case).
 
 === Resources
 
@@ -352,13 +354,11 @@ public class CarsController {
      
 ----
 
-Linking is done using the sppring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn't configure the "ignore unknown property" feature: it is disabled by default!
+Linking is done using the sppring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn't configure the "ignore unknown property" feature: it is disabled by default (hurray)!
 
 === HTTPS
 
 HTTPS is configured in the application.yml (or configuration.properties, as you want) file. It's pretty much like the Dropwizard's one. You just have to follow the documentation.
-
-Note that you can switch the underlying web server, and choose between Tomcat, Jetty and Undertow. In the example, I used Jetty.
 
 === REST Client
 
@@ -504,9 +504,12 @@ Restlet is not a Microservices framework. However, it is good as a REST framewor
 
 == SparkJava
 
-Don't confuse Spark with Apache Spark. It has nothing in common. Spark is a tiny Sinatra inspired framework for creating web applications in Java 8 with minimal effort. In effect it is tiny, but very feature rich.
+Don't confuse Spark with Apache Spark. It has nothing in common. "`Spark is a tiny Sinatra inspired framework for creating web applications in Java 8 with minimal effort`". Indeed it is tiny, but very feature rich.
 
 === Main
+The main method is pretty much like other frameworks main: plumbing to wire routes. Note that Spark doesn't use Jackson as mapper, but optionally uses a mapper passed as parameter of some route configuration calls. A mapper is simply a method taking an object as parameter and returning a String.
+
+All configuration is done calling static methods on the Spark class.
 
 === Resources
 
@@ -530,30 +533,49 @@ public String createCar(Request request, Response response) {
 
 === HTTPS
 
+As everything in Spark, there is a static method call to set HTTPS:
+[source,java]
+----
+String keystoreFile = System.getProperty("javax.net.ssl.keyStorePath");
+String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+String truststoreFile = System.getProperty("javax.net.ssl.trustStore");
+String truststorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
+secure(keystoreFile, keystorePassword, truststoreFile, truststorePassword);
+----
+
 === REST Client
+
+Spark is a server framework and doesn't provide a client. To fill the gap, I use a great REST client library called Unirest. It looks like Spark as all calls are static method calls to the Unirest class.
+
+The document helps, so I just follow it to make it work. Note that, Unirest doesn't use Jackson as mapper, but provides an interface (a simplified version of Jackson's `ObjectMapper`, called... `ObjectMapper`!) which you can implement using Jackson.
 
 === Security
 
+Spark allows to define filters using `before` and `after`. In my case, I juste have to define a before filter:
+
+[source,java]
+----
+AccessTokenVerificationCommandFactory accessTokenVerificationCommandFactory = new AccessTokenVerificationCommandFactory();
+AuthenticationFilter authenticationFilter = new AuthenticationFilter(accessTokenVerificationCommandFactory);
+before(authenticationFilter::filter);
+----
+
+`filter` is, as always in Spark, a method taking a `Request` and a `Response` as parameters. Simple!
+
 === Monitoring
+
+As a simple library, Spark doesn't provide a mean to monitor your application. However, there is a simple library you can use to enhance Spark: https://github.com/qmetric/spark-metrics[spark-metrics]. It is simply a collection of route decorators.
 
 === Conclusion
 
+One can go very fast to implement a complete server using Spark. It is lightweight, runs fast and very simple to use. Unfortunately, it misses some features compared to others, but these are easily added using third party libraries, as easy-to-use that Spark itself.
 
-== Performance comparison
+I would definitely recommend to use it for projects of all size, unless you need advanced features quickly, although you can add it by hand.
 
-=== Disclaimer
+== End of the journey
 
-TODO
-Use JMeter to make a big number of posts, then get.
-Bundle size.
-Startup time.
+It's been a long journey. The study is not as complete as I first wanted, but it's a good start. I will try to measure performance of each framework in another article. All the start very quickly (from few milliseconds to few seconds), respond well, but how do they behave under heavy load?
 
-=== The results
+I tried all these frameworks after having used JAX-RS for a long time. Some of them are really similar, others are really disconcerting. In my opinion, you should always try a library or framework before you use it in production. This is what I've done, and I had a good time. I hope this article will be helpful in a way or another.
 
-== A conclusion
-
-It's been a long journey. The study is not as complete as I first wanted, but it's a good start. I tried all these frameworks after having used JAX-RS for a long time. Some of them are really similar, others are really disconcerting.
-
-In my opinion, you should always try a library or framework before to use it. This is what I've done, and I had a good time. I hope this article will be helpful in a way or another.
-
-All the code is available on github (give link). You are free and encouraged to fork, play with the code and give feedback.
+All the code is available on github (https://github.com/cdelmas/microservices-comparison). You are free and encouraged to fork, play with the code and give feedback.
