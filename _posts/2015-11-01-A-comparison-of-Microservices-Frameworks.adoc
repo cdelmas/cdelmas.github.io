@@ -1,5 +1,6 @@
 = A comparison of Microservices Frameworks
 :hp-tags: Tech, Microservices, REST
+:published_at: 2015-11-01
 
 Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren't new, it is one of the biggest buzzword of the two last years.
 
@@ -354,7 +355,7 @@ public class CarsController {
      
 ----
 
-Linking is done using the sppring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn't configure the "ignore unknown property" feature: it is disabled by default (hurray)!
+Linking is done using the spring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn't configure the "ignore unknown property" feature: it is disabled by default (hurray)!
 
 === HTTPS
 
@@ -486,7 +487,7 @@ Restlet uses the standard properties, almost. The keystorePath, surprisingly, do
 
 === REST Client
 
-There is a client provided by Restlet. It is not easy to use, really. After having set the HTTPS properties (with a mix of standard and not), I had to use an interface with an annotated method (a resource-like interface) and wrap it with the client. Well, after all it's a client resource, not a simple HTTP client. I've found this approach a bit complicated.
+There is a client provided by Restlet. It is not easy to use, really. After having set the HTTPS properties (with a mix of standard-or-not properties), I had to use an interface with an annotated method (a resource-like interface) and wrap it with the client. Well, after all it's a client resource, not a simple HTTP client. I've found this approach a bit complicated.
 
 === Security
 
