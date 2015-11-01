@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>A comparison of Microservices Frameworks</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//cdelmas.github.io/themes/Casper/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//cdelmas.github.io/themes/Casper/assets/css/screen.css?v=1.0.0" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html" />
+    
+    <meta property="og:site_name" content="A modest developer&#x27;s blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="A comparison of Microservices Frameworks" />
+    <meta property="og:description" content="Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren&amp;#8217;t new, it is one of the biggest buzzword of the two last years. To summarize, big monolithic architectures..." />
+    <meta property="og:url" content="https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html" />
+    <meta property="article:published_time" content="2015-09-09T22:00:00.000Z" />
+    <meta property="article:modified_time" content="2015-11-01T21:36:22.787Z" />
+    <meta property="article:tag" content="Tech" />
+    <meta property="article:tag" content="Microservices" />
+    <meta property="article:tag" content="REST" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="A comparison of Microservices Frameworks" />
+    <meta name="twitter:description" content="Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren&amp;#8217;t new, it is one of the biggest buzzword of the two last years. To summarize, big monolithic architectures..." />
+    <meta name="twitter:url" content="https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "A modest developer&#x27;s blog",
+    "author": {
+        "@type": "Person",
+        "name": null,
+        "image": "https://avatars.githubusercontent.com/u/5180763?v=3",
+        "url": "undefined/author/undefined",
+        "sameAs": null
+    },
+    "headline": "A comparison of Microservices Frameworks",
+    "url": "https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html",
+    "datePublished": "2015-09-09T22:00:00.000Z",
+    "dateModified": "2015-11-01T21:36:22.787Z",
+    "keywords": "Tech,  Microservices,  REST",
+    "description": "Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren&amp;#8217;t new, it is one of the biggest buzzword of the two last years. To summarize, big monolithic architectures..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost ?" />
+    <link rel="alternate" type="application/rss+xml" title="A modest developer&#x27;s blog" href="https://cdelmas.github.io/rss" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+</head>
+<body class="post-template tag-Tech tag-Microservices tag-REST">
+
+    
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="https://cdelmas.github.io">Home</a>
+        <!-- <a class="subscribe-button icon-feed" href="https://cdelmas.github.io/rss/">Subscribe</a> -->
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-Tech tag-Microservices tag-REST">
+
+        <header class="post-header">
+            <h1 class="post-title">A comparison of Microservices Frameworks</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-09-10">10 September 2015</time>  on <a href="https://cdelmas.github.io/tag/Tech">Tech</a>, <a href="https://cdelmas.github.io/tag/Microservices"> Microservices</a>, <a href="https://cdelmas.github.io/tag/REST"> REST</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Microservice is probably one of the most used term nowadays when speaking about software architecture. Although the underlying concepts aren&#8217;t new, it is one of the biggest buzzword of the two last years.</p>
+</div>
+<div class="paragraph">
+<p>To summarize, big monolithic architectures tend to become not very maintainable and extendable when they grow over a certain size. Moreover, they don&#8217;t scale well (you scale by multiplying big applications), and you can&#8217;t replace old parts easily.</p>
+</div>
+<div class="paragraph">
+<p>One of the biggest advantages of microservices is to address these concerns: instead of building an entire application as one block, one can build it as a set of services which will communicate over some kind of messaging system (most of the time, REST over HTTP). Given that, you will be able to replace one piece if you need to, you can scale only one piece because you need to, and so on.</p>
+</div>
+<div class="paragraph">
+<p>But there is a counterpart: as you&#8217;re building a distributed system, you will have the disadvantages of a distributed system. Building a distributed system as microservices architecture is not that easy, but fortunately there are many frameworks to help you. This article will present some of them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements">Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I don&#8217;t want to make another comparison based on some "Hello World" application. Most of the frameworks provide a simple way to start a server and respond to a simple request with only one line.</p>
+</div>
+<div class="paragraph">
+<p>But this is not the real life. In the real life, you should not use plain HTTP. You would use REST / HTTPS and have an HTTPS client. You would add a Location header after a successful creation, and add links to your JSON or XML representations. You should have metrics included, to monitor your application. You have some kind of security to protect the access to your API.</p>
+</div>
+<div class="paragraph">
+<p>Here is a list of what I am going to evaluate.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>I&#8217;m about to build a tiny RESTful API. UI is not considered in this article (note that every candidate framework has a mean to serve static resources easily)</p>
+</li>
+<li>
+<p>Only use HTTPS to access the API</p>
+</li>
+<li>
+<p>The API will have two sets of resources (aka two microservices): a simple hello world resource calling a cars resource to get cars available (what a useless example!). For simplicity&#8217;s sake, they will be deployed in the same server, but will communicate over HTTPS.</p>
+</li>
+<li>
+<p>The resource will have a JSON representation</p>
+</li>
+<li>
+<p>Each representation will have at least a self link to the resource</p>
+</li>
+<li>
+<p>After a resource creation, client receive a Location header (the resource&#8217;s link)</p>
+</li>
+<li>
+<p>The API will be accessible only by people providing a Facebook OAuth token</p>
+</li>
+<li>
+<p>Each API must have a monitoring / metrics facility (not tested though)</p>
+</li>
+<li>
+<p>Each service may be packaged as a standalone jar, to be run using <code>java -jar</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_candidates">The candidates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is the list of candidates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.dropwizard.io/">Dropwizard</a></p>
+</li>
+<li>
+<p><a href="http://vertx.io/">Vertx</a></p>
+</li>
+<li>
+<p><a href="http://projects.spring.io/spring-boot/">Spring Boot</a></p>
+</li>
+<li>
+<p><a href="http://restlet.com/projects/restlet-framework/">Restlet</a></p>
+</li>
+<li>
+<p><a href="http://sparkjava.com/">Spark</a> + <a href="http://unirest.io/java.html">Unirest</a> (REST client, Spark doesn&#8217;t provide a REST client itself)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that Restlet and Spark doesn&#8217;t claim to be Microservices frameworks, but Restlet is known to be a very good REST framework, and Spark is so lightweight that I couldn&#8217;t resist to try it against bigger frameworks like Spring Boot.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites">Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each sample run with a simple <code>java -jar</code> command. You will need to set some properties to enable ssl: <code>-Djavax.net.ssl.trustStore=&#8230;&#8203; -Djavax.net.ssl.trustStorePassword=&#8230;&#8203; -Djavax.net.ssl.keyStorePassword=&#8230;&#8203; -Djavax.net.ssl.keyStorePath=&#8230;&#8203;</code>.</p>
+</div>
+<div class="paragraph">
+<p>In order to be able to run the samples, you need to create a keystore (see <a href="http://www.javacodegeeks.com/2014/07/java-keystore-tutorial.html">this tutorial</a> for example), and install a self-signed certificate. You will need the Facebook certificate too (see <a href="http://serverfault.com/questions/139728/how-to-download-the-ssl-certificate-from-a-website">here</a> how to get it), and a user token (see <a href="https://developers.facebook.com/" class="bare">https://developers.facebook.com/</a>).</p>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t forget to modify the configuration files and system properties accordingly. All these steps are explained in the README file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dropwizard">Dropwizard</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As stated by its website, &#8220;Dropwizard is a Java framework for developing ops-friendly, high-performance, RESTful web services.&#8221;. It is a bundle of some successful libraries such as Jetty, Jersey and Jackson. The documentation is very good, I&#8217;ve found everything I needed inside; a good point, as I hate being forced to search for minutes (hours?) for something said simple.</p>
+</div>
+<div class="sect2">
+<h3 id="_main">Main</h3>
+<div class="paragraph">
+<p>The main mehod is quite simple: you just build an <code>Application</code> instance and run it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public static void main(String[] args) throws Exception {
+    new DropwizardApplication().run(args);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>DropwizardApplication</code> class contains all the plumbing: resource and health checks registration, Guice bootstrapping and Jackson&#8217;s <code>ObjectMapper</code> configuration. It is given an instance of a configuration class (<code>DropwizardServerConfiguration</code>) which is a POJO holding the configuration properties read from the YAML file passed as parameter to our application.</p>
+</div>
+<div class="paragraph">
+<p>The app is run with parameters: <code>java -jar app.jar server config.yml</code>. The <code>server</code> parameter is here to tell Dropwizard to start the server, but you can also manipulate the database (I didn&#8217;t try this).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources">Resources</h3>
+<div class="paragraph">
+<p>Under the hood, Dropwizard uses Jersey, so the resources are just POJOs annotated with (a lot of) JAX-RS annotations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Path("/cars/{id}")
+@Produces(MediaType.APPLICATION_JSON)
+public class CarResource {
+
+    @Context
+    UriInfo uriInfo;
+
+    @Inject
+    private CarRepository carRepository;
+
+    @GET
+    public Response byId(@Auth User user, @PathParam("id") int carId) {
+        Optional&lt;Car&gt; car = carRepository.byId(carId);
+        return car.map(c -&gt; {
+            CarRepresentation carRepresentation = new CarRepresentation(c);
+            carRepresentation.addLink(Link.self(uriInfo.getAbsolutePathBuilder().build(c.getId()).toString()));
+            return Response.ok(carRepresentation).build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All the underlying HTTP handling is done by the framework, you have no mandatory access to request and response objects. In this case, the return is a <code>Response</code> but I could simply have returned the object; however, in that case the return code would not be the right one (201), so to have full control over it, I prefer that solution. Moreover, the 404 (Status.NOT_FOUND) is set on the response; I could throw an exception instead, and write a mapper to make an adequate response, but it&#8217;s overkill (and I hate so-called "Business Exceptions").</p>
+</div>
+<div class="paragraph">
+<p>Note that injection is performed by Guice. It seems that there is a CDI container provided with Jersey (hk2), but I didn&#8217;t managed to make it work. Linking is handmade, and quite easy with the <code>UriInfo</code> object.</p>
+</div>
+<div class="paragraph">
+<p>Dropwizard uses Jackson to serialize / deserialize the object returned to JSON, so you have nothing special to do&#8230;&#8203; but you have to configure the <code>ObjectMapper</code> to disable errors on unknown properties (see <a href="http://martinfowler.com/bliki/TolerantReader.html">Tolerant Reader</a>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https">HTTPS</h3>
+<div class="paragraph">
+<p>HTTPS is configured in the YAML configuration file; the framework ignores the standard Java properties. The documentation explains exactly how to set it up, and there is no surprise here.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_client">REST client</h3>
+<div class="paragraph">
+<p>The REST client is built by Guice, as a singleton; it is not managed as documented, I didn&#8217;t managed to make it work this way. Otherwise, nothing special about the client, the API is fluent and simple:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Override
+public List&lt;Car&gt; getAllCars(String auth) {
+    WebTarget target = client.target("https://localhost:8443/app/cars");
+    Invocation invocation = target.request(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer " + auth)
+            .build(HttpMethod.GET);
+    Car[] cars = invocation.invoke(Car[].class);
+    return asList(cars);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>Client</code>, this time, uses the standard properties.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security">Security</h3>
+<div class="paragraph">
+<p>The authentication requires two things: first, implement the <code>Authenticator</code> interface. Note that he single method <code>authenticate</code> returns an <code>Optional&lt;User&gt;</code>, but not a Java 8&#8217;s <code>Optional</code>, the Guava&#8217;s one! What a pity&#8230;&#8203; Nevermind. Second, you need to register the authenticator against Jersey:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">environment.jersey().register(AuthFactory.binder(
+                new OAuthFactory&lt;&gt;(guiceBundle.getInjector().getInstance(FacebookTokenAuthenticator.class),
+                        getName() + "-Realm",
+                        User.class)));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So far so good, it works as expected.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring">Monitoring</h3>
+<div class="paragraph">
+<p>Dropwizard has a built-in monitoring system. You can register healthchecks to ensure that the app is up, and each resource can be metered simply using annotations. You can also add custom metrics, using the metrics registry obtained from the <code>Environment</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>While a bit verbose due to all the plumbing involved in the setup, Dropwizard is a nice framework. It provides all the functions needed to build a MicroServices-based application. However, to build tiny services, the amount of plumbing required can be too high compared to the business code; I would not recommend to use it in that case. Otherwise, you cannot go wrong!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vertx">Vertx</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8220;Vertx is a tool-kit for building reactive applications on the JVM.&#8221;. You can develop with it in Java of course, but also many languages running on the JVM (Javascript, Scala, Ruby, Python, Clojure).</p>
+</div>
+<div class="paragraph">
+<p>It also provides an actors-like system, the "verticles", which allow deployment of independent, concurrent, and potentially written in different language, services communicating over an event bus. As stated by the documentation, you are not forced to use this model (I didn&#8217;t in this case, however I will give it a try!).</p>
+</div>
+<div class="sect2">
+<h3 id="_main_2">Main</h3>
+<div class="paragraph">
+<p>The framework abstracts low level handling of HTTP, but you need to create the server by hand:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Vertx vertx = Vertx.create();
+HttpServer server = vertx.createHttpServer(serverOptions);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maybe you noticed the serverOptions parameter (sure you did!). You have to wait the HTTPS section to speak about that.</p>
+</div>
+<div class="paragraph">
+<p>The main method creates the HTTP client, set the authentication system and binds "resources" to routes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources_2">Resources</h3>
+<div class="paragraph">
+<p>There is no resource class in Vertx. You just give handlers to routes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">CarResource carResource = new CarResource(carRepository);
+router.get("/cars/:id").produces("application/json").handler(carResource::byId);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>CarResource</code> is simply a POJO having a method named <code>byId</code> with a <code>RoutingContext</code> as parameter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public void byId(RoutingContext routingContext) {
+    HttpServerResponse response = routingContext.response();
+    String idParam = routingContext.request().getParam("id");
+    if (idParam == null) {
+        response.setStatusCode(400).end();
+    } else {
+        Optional&lt;Car&gt; car = carRepository.byId(Integer.parseInt(idParam));
+        if (car.isPresent()) {
+            CarRepresentation carRepresentation = new CarRepresentation(car.get());
+            carRepresentation.addLink(self(routingContext.request().absoluteURI()));
+            response.putHeader("content-type", "application/json")
+                    .end(Json.encode(carRepresentation));
+        } else {
+            response.setStatusCode(404).end();
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, you have a total control on the response, and no choice about that. No problem, you know what you do, exactly. The JSON encoding is done by Jackson again, and you still have to disable the "fail on unknown property" feature.</p>
+</div>
+<div class="paragraph">
+<p>Oh, by the way, this will not work without a subtle configuration on the route:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">router.route("/cars*").handler(BodyHandler.create());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, Vertx ignores the body, so you have to explicitly say "I want to read it". Otherwise, you don&#8217;t get the body content.</p>
+</div>
+<div class="paragraph">
+<p>Note that this time, there is no dependency injection, all is done manually. Not a big deal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https_2">HTTPS</h3>
+<div class="paragraph">
+<p>Remember the serverOptions in the Main section? This is the definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">HttpServerOptions serverOptions = new HttpServerOptions()
+                .setSsl(true)
+                .setKeyStoreOptions(new JksOptions()
+                        .setPath(System.getProperty("javax.net.ssl.keyStorePath"))
+                        .setPassword(System.getProperty("javax.net.ssl.keyStorePassword")))
+                .setPort(8090);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This object allows to set the port and SSL properties. Vertx doesn&#8217;t automatically get the standard properties, so you have to do it yourself. Not really a problem, in my opinion (less magic, more control).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_client_2">REST Client</h3>
+<div class="paragraph">
+<p>Building a client is the same as building a server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">HttpClientOptions clientOptions = new HttpClientOptions()
+                .setSsl(true)
+                .setTrustStoreOptions(new JksOptions()
+                        .setPath(System.getProperty("javax.net.ssl.trustStore"))
+                        .setPassword(System.getProperty("javax.net.ssl.trustStorePassword")));
+HttpClient httpClient = vertx.createHttpClient(clientOptions);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage is easy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">httpClient.getAbs("https://localhost:8090/cars")
+                .putHeader("Accept", "application/json")
+                .putHeader("Authorization", "Bearer " + routingContext.user().principal().getString("token"))
+                .handler(response -&gt;
+                        response.bodyHandler(buffer -&gt; {
+                            if (response.statusCode() == 200) {
+                                List&lt;Car&gt; cars = new ArrayList&lt;&gt;(asList(Json.decodeValue(buffer.toString(), Car[].class)));
+                                routingContext.response()
+                                        .putHeader("content-type", "test/plain")
+                                        .setChunked(true)
+                                        .write(cars.stream().map(Car::getName).collect(toList()).toString())
+                                        .write(", and then Hello World from Vert.x-Web!")
+                                        .end();
+                            } else {
+                                routingContext.response()
+                                        .setStatusCode(response.statusCode())
+                                        .putHeader("content-type", "test/plain")
+                                        .setChunked(true)
+                                        .write("Oops, something went wrong: " + response.statusMessage())
+                                        .end();
+                            }
+                        }))
+                .end();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I already said that you have full control, didn&#8217;t I? Well, as you can see, you indeed have full control (remember the raw servlet response?).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_2">Security</h3>
+<div class="paragraph">
+<p>There is an oauth module, but it doesn&#8217;t fulfill my needs. So again I did it by hand. Fortunately, I found a gist doing exactly what I want, but in Groovy. No problem, I wrote it in Java.</p>
+</div>
+<div class="paragraph">
+<p>It consists of two classes, a <code>AuthHandler</code> and an <code>AuthProvider</code>. Once done, I just have to set the former as handler for all routes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">AuthHandler auth = new BearerAuthHandler(new FacebookOauthTokenVerifier(httpClient));
+router.route("/*").handler(auth);</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>At the time of publishing, this does not work properly. I will update the article when I find the solution.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_2">Monitoring</h3>
+<div class="paragraph">
+<p>Vertx offers a metrics system, with many different metrics. Of course, you can register your own metrics using the MetricsRegistry.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion_2">Conclusion</h3>
+<div class="paragraph">
+<p>Vertx is really complete. It is built on top of Netty, and offers a performant system. As it is written in Java 8, you can write a very elegant code.</p>
+</div>
+<div class="paragraph">
+<p>As Vertx is asynchronous by nature, you can feel it puzzling at first sight for people like me that are not used to this programming style. But once you get the thing, it&#8217;s probably one of the best tools I have ever used.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_boot">Spring Boot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot "takes an opinionated view of building production-ready Spring applications. Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.".</p>
+</div>
+<div class="paragraph">
+<p>Who, in the Java world, has never heard of Spring? It has been one the most popular framework ever in Java, so it was not possible to ignore it in this comparison.</p>
+</div>
+<div class="sect2">
+<h3 id="_main_3">Main</h3>
+<div class="paragraph">
+<p>Very hard to do simpler:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@SpringBootApplication
+public class Main {
+    public static void main(String[] args) {
+
+        SpringApplication.run(Main.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a lot of magic. The <code>@SpringBootApplication</code> triggers the component scan and configuration of the Spring application.</p>
+</div>
+<div class="paragraph">
+<p>Note that you can switch the underlying web server, and choose between Tomcat, Jetty and Undertow. In the example, I used Jetty. This is done by choosing the module you want in the dependency management system (grade in this case).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources_3">Resources</h3>
+<div class="paragraph">
+<p>Resource classes are annotated with a component annotation: <code>@RestController</code>. Otherwise, it is much like JAX-RS: @RequestMapping for @Path, <code>ResponseEntity</code> for <code>Response</code> and so on.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@RestController
+@RequestMapping(value = "/cars", produces = "application/json")
+public class CarsController {
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity&lt;CarRepresentation&gt; byId(@PathVariable("id") String carId) {
+        Optional&lt;Car&gt; car = carRepository.byId(Integer.parseInt(carId));
+        return car.map(c -&gt; {
+            CarRepresentation rep = toCarRepresentation(c);
+            return new ResponseEntity&lt;&gt;(rep, HttpStatus.OK);
+        })
+                .orElse(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));
+    }
+
+    private CarRepresentation toCarRepresentation(Car c) {
+        String carId = String.valueOf(c.getId());
+        CarRepresentation rep = new CarRepresentation(c);
+        rep.add(linkTo(methodOn(CarsController.class).byId(carId)).withSelfRel());
+        return rep;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Linking is done using the sppring-hateoas module instead of the handmade solution. Spring Boot uses Jackson for JSON serialization, but I didn&#8217;t configure the "ignore unknown property" feature: it is disabled by default (hurray)!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https_3">HTTPS</h3>
+<div class="paragraph">
+<p>HTTPS is configured in the application.yml (or configuration.properties, as you want) file. It&#8217;s pretty much like the Dropwizard&#8217;s one. You just have to follow the documentation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_client_3">REST Client</h3>
+<div class="paragraph">
+<p>The client is RestTemplate. It is very simple to use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">MultiValueMap&lt;String, String&gt; headers = new LinkedMultiValueMap&lt;&gt;();
+headers.add("Accept", "application/json");
+headers.add("Authorization", authToken);
+HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; requestEntity = new HttpEntity&lt;&gt;(null, headers);
+RestTemplate rest = new RestTemplate();
+ResponseEntity&lt;Car[]&gt; responseEntity = rest.exchange("https://localhost:8443/cars", HttpMethod.GET, requestEntity, Car[].class);
+List&lt;Car&gt; cars = asList(responseEntity.getBody());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring Boot uses the standard ssl properties.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_3">Security</h3>
+<div class="paragraph">
+<p>Once again, it pretty simple: you just have to annotate the resource class and configure the endpoint where you can check the token:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@EnableOAuth2Resource
+@RestController
+public class SampleController {
+	(...)
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  oauth2:
+    resource:
+      userInfoUri: https://graph.facebook.com/v2.4/me
+      preferTokenInfo: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@EnableOAuth2Resource</code> isn&#8217;t bundled in Spring Boot, but comes from Spring Cloud Security.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_3">Monitoring</h3>
+<div class="paragraph">
+<p>Once again, you just have to drop a module to activate the metrics: Spring Boot Actuator. By default, there are metrics registered by the framework, but you can easily add your own. Under the hood, it uses Dropwizard metrics.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion_3">Conclusion</h3>
+<div class="paragraph">
+<p>I really went fast using Spring Boot. I have just followed the documentation, and all worked as expected, immediately. Maybe it&#8217;s because it is not the first time I use Spring (but the first time for Boot), but I&#8217;m impressed with the ease with which I managed to build the app.</p>
+</div>
+<div class="paragraph">
+<p>In my opinion, if you need to go fast, don&#8217;t want too many plumbing code, have a feature complete framework (Spring portfolio is huge), and if annotations don&#8217;t make you ill, go with Spring Boot. You won&#8217;t have regrets.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_restlet">Restlet</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>"Restlet Framework is the most widely used open source solution for Java developers who want to create and use APIs.". I don&#8217;t know if Restlet is really the most widely used REST framework, many people heard of it but few use it.</p>
+</div>
+<div class="sect2">
+<h3 id="_main_4">Main</h3>
+<div class="paragraph">
+<p>I decided to use Guice to enable dependency injection. That was my first candidate, and I thought I&#8217;d consider it as a criteria at first.</p>
+</div>
+<div class="paragraph">
+<p>Anyway, the main class is pretty simple:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public static void main(String[] args) throws Exception {
+    Injector injector = Guice.createInjector(new SelfInjectingServerResourceModule(),
+            new RestletInfraModule(),
+            new CarModule(),
+            new HelloModule());
+    RestComponent component = injector.getInstance(RestComponent.class);
+    component.start();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>RestComponent</code> contains all the plumbing, such as route configuration, HTTPS settings, and so on. With Restlet, no configuration file, everything is done using code. I personally prefer this approach.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources_4">Resources</h3>
+<div class="paragraph">
+<p>With Restlet, you use less annotations than with other frameworks:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class CarsResource extends ServerResource {
+
+    @Inject
+    private CarRepository carRepository;
+
+    @Get("json")
+    public List&lt;CarRepresentation&gt; all() {
+        List&lt;io.github.cdelmas.spike.common.domain.Car&gt; cars = carRepository.all();
+        getResponse().getHeaders().add("total-count", String.valueOf(cars.size()));
+        return cars.stream().map(c -&gt; {
+            CarRepresentation carRepresentation = new CarRepresentation(c);
+            carRepresentation.addLink(Link.self(new Reference(getReference()).addSegment(String.valueOf(c.getId())).toString()));
+            return carRepresentation;
+        }).collect(toList());
+    }
+
+    @Post("json")
+    public void createCar(io.github.cdelmas.spike.common.domain.Car car) {
+        carRepository.save(car);
+        setLocationRef(getReference().addSegment(String.valueOf(car.getId())));
+        setStatus(Status.SUCCESS_CREATED);
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the first time I have to extend a framework class. Not a big deal yet. Annotations are straightforward to use. Note that you have to set the status, location to the class, not on a response object. The same for headers (<code>getResponse().getHeaders().add&#8230;&#8203;</code>). Attributes and parameters are retrieved from the resource object too. I don&#8217;t like this approach personally.</p>
+</div>
+<div class="paragraph">
+<p>The worst thing I had to do (and it&#8217;s not documented), is the <code>ObjectMapper</code> configuration. The code is really tricky: first, I need to write a custom converter (a complete class), and second I need to replace the existing converter after a complete iteration over the converters. Really, really bad&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https_4">HTTPS</h3>
+<div class="paragraph">
+<p>Once again, it is very simple to set:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">getClients().add(Protocol.HTTPS);
+Server secureServer = getServers().add(Protocol.HTTPS, 8043);
+Series&lt;Parameter&gt; parameters = secureServer.getContext().getParameters();
+parameters.add("sslContextFactory", "org.restlet.engine.ssl.DefaultSslContextFactory");
+parameters.add("keyStorePath", System.getProperty("javax.net.ssl.keyStorePath"));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restlet uses the standard properties, almost. The keystorePath, surprisingly, doesn&#8217;t use the standard property. Otherwise, it&#8217;s quite well documented and easy to do.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_client_4">REST Client</h3>
+<div class="paragraph">
+<p>There is a client provided by Restlet. It is not easy to use, really. After having set the HTTPS properties (with a mix of standard and not), I had to use an interface with an annotated method (a resource-like interface) and wrap it with the client. Well, after all it&#8217;s a client resource, not a simple HTTP client. I&#8217;ve found this approach a bit complicated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_4">Security</h3>
+<div class="paragraph">
+<p>To secure the API, I simply had a guard on the route. The guard runs a verifier, which is a custom one, and, I have to say, it is not straightforward to write it. Once done, all works well. As far as I remember, I had to search on forums to implement the solution.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_4">Monitoring</h3>
+<div class="paragraph">
+<p>Restlet doesn&#8217;t provide a monitoring facility. It is only a REST framework after all, and is not competiting against Spring Boot or Dropwizard.</p>
+</div>
+<div class="paragraph">
+<p>Of course, you can add Dropwizard metrics, but it&#8217;s a lot of additional work.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion_4">Conclusion</h3>
+<div class="paragraph">
+<p>Restlet is not a Microservices framework. However, it is good as a REST framework, as long as you don&#8217;t need to customize it. Then, you will have a lot of troubles, at least I had.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sparkjava">SparkJava</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Don&#8217;t confuse Spark with Apache Spark. It has nothing in common. &#8220;Spark is a tiny Sinatra inspired framework for creating web applications in Java 8 with minimal effort&#8221;. Indeed it is tiny, but very feature rich.</p>
+</div>
+<div class="sect2">
+<h3 id="_main_5">Main</h3>
+<div class="paragraph">
+<p>The main method is pretty much like other frameworks main: plumbing to wire routes. Note that Spark doesn&#8217;t use Jackson as mapper, but optionally uses a mapper passed as parameter of some route configuration calls. A mapper is simply a method taking an object as parameter and returning a String.</p>
+</div>
+<div class="paragraph">
+<p>All configuration is done calling static methods on the Spark class.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resources_5">Resources</h3>
+<div class="paragraph">
+<p>There is no resource class in Spark, only routes. A route is simply a method taking a request and a response as parameters, and can return almost anything as result.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public String createCar(Request request, Response response) {
+    Car car;
+    try {
+        car = objectMapper.readValue(request.body(), Car.class);
+        carRepository.save(car);
+        response.header("Location", request.url() + "/" + car.getId());
+        response.status(201);
+    } catch (IOException e) {
+        response.status(400);
+    }
+    return "";
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https_5">HTTPS</h3>
+<div class="paragraph">
+<p>As everything in Spark, there is a static method call to set HTTPS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String keystoreFile = System.getProperty("javax.net.ssl.keyStorePath");
+String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+String truststoreFile = System.getProperty("javax.net.ssl.trustStore");
+String truststorePassword = System.getProperty("javax.net.ssl.trustStorePassword");
+secure(keystoreFile, keystorePassword, truststoreFile, truststorePassword);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rest_client_5">REST Client</h3>
+<div class="paragraph">
+<p>Spark is a server framework and doesn&#8217;t provide a client. To fill the gap, I use a great REST client library called Unirest. It looks like Spark as all calls are static method calls to the Unirest class.</p>
+</div>
+<div class="paragraph">
+<p>The document helps, so I just follow it to make it work. Note that, Unirest doesn&#8217;t use Jackson as mapper, but provides an interface (a simplified version of Jackson&#8217;s <code>ObjectMapper</code>, called&#8230;&#8203; <code>ObjectMapper</code>!) which you can implement using Jackson.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_5">Security</h3>
+<div class="paragraph">
+<p>Spark allows to define filters using <code>before</code> and <code>after</code>. In my case, I juste have to define a before filter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">AccessTokenVerificationCommandFactory accessTokenVerificationCommandFactory = new AccessTokenVerificationCommandFactory();
+AuthenticationFilter authenticationFilter = new AuthenticationFilter(accessTokenVerificationCommandFactory);
+before(authenticationFilter::filter);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>filter</code> is, as always in Spark, a method taking a <code>Request</code> and a <code>Response</code> as parameters. Simple!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_5">Monitoring</h3>
+<div class="paragraph">
+<p>As a simple library, Spark doesn&#8217;t provide a mean to monitor your application. However, there is a simple library you can use to enhance Spark: <a href="https://github.com/qmetric/spark-metrics">spark-metrics</a>. It is simply a collection of route decorators.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion_5">Conclusion</h3>
+<div class="paragraph">
+<p>One can go very fast to implement a complete server using Spark. It is lightweight, runs fast and very simple to use. Unfortunately, it misses some features compared to others, but these are easily added using third party libraries, as easy-to-use that Spark itself.</p>
+</div>
+<div class="paragraph">
+<p>I would definitely recommend to use it for projects of all size, unless you need advanced features quickly, although you can add it by hand.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_end_of_the_journey">End of the journey</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s been a long journey. The study is not as complete as I first wanted, but it&#8217;s a good start. I will try to measure performance of each framework in another article. All the start very quickly (from few milliseconds to few seconds), respond well, but how do they behave under heavy load?</p>
+</div>
+<div class="paragraph">
+<p>I tried all these frameworks after having used JAX-RS for a long time. Some of them are really similar, others are really disconcerting. In my opinion, you should always try a library or framework before you use it in production. This is what I&#8217;ve done, and I had a good time. I hope this article will be helpful in a way or another.</p>
+</div>
+<div class="paragraph">
+<p>All the code is available on github (<a href="https://github.com/cdelmas/microservices-comparison" class="bare">https://github.com/cdelmas/microservices-comparison</a>). You are free and encouraged to fork, play with the code and give feedback.</p>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="" style="background-image: url(https://avatars.githubusercontent.com/u/5180763?v=3)"><span class="hidden">'s Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href=""></a></h4>
+
+                    <p>Read <a href="">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/share?text=A%20comparison%20of%20Microservices%20Frameworks&amp;url=https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cdelmas.github.io/2015/09/10/A-comparison-of-Microservices-Frameworks.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'cdelmas'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+
+
+    </article>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="https://cdelmas.github.io">A modest developer&#x27;s blog</a> &copy; 2015</section>
+        <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();      
+      </script>
+
+    <script type="text/javascript" src="//cdelmas.github.io/themes/Casper/assets/js/jquery.fitvids.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//cdelmas.github.io/themes/Casper/assets/js/index.js?v=1.0.0"></script>
+
+</body>
+</html>
