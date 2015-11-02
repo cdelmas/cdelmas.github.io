@@ -491,7 +491,7 @@ There is a client provided by Restlet. It is not easy to use, really. After havi
 
 === Security
 
-To secure the API, I simply had a guard on the route. The guard runs a verifier, which is a custom one, and, I have to say, it is not straightforward to write it. Once done, all works well. As far as I remember, I had to search on forums to implement the solution.
+To secure the API, I simply add a guard on the route. The guard runs a verifier, which is a custom one, and, I have to say, it is not straightforward to write it. Once done, all works well. As far as I remember, I had to search on forums to implement the solution.
 
 === Monitoring
 
