@@ -575,7 +575,7 @@ I would definitely recommend to use it for projects of all size, unless you need
 
 == End of the journey
 
-It's been a long journey. The study is not as complete as I first wanted, but it's a good start. I will try to measure performance of each framework in another article. All the start very quickly (from few milliseconds to few seconds), respond well, but how do they behave under heavy load?
+It's been a long journey. The study is not as complete as I first wanted, but it's a good start. I will try to measure performance of each framework in another article. All the frameworks start very quickly (from few milliseconds to few seconds), respond well, but how do they behave under heavy load?
 
 I tried all these frameworks after having used JAX-RS for a long time. Some of them are really similar, others are really disconcerting. In my opinion, you should always try a library or framework before you use it in production. This is what I've done, and I had a good time. I hope this article will be helpful in a way or another.
 
