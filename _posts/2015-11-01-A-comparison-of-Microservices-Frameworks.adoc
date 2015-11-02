@@ -548,7 +548,7 @@ secure(keystoreFile, keystorePassword, truststoreFile, truststorePassword);
 
 Spark is a server framework and doesn't provide a client. To fill the gap, I use a great REST client library called Unirest. It looks like Spark as all calls are static method calls to the Unirest class.
 
-The document helps, so I just follow it to make it work. Note that, Unirest doesn't use Jackson as mapper, but provides an interface (a simplified version of Jackson's `ObjectMapper`, called... `ObjectMapper`!) which you can implement using Jackson.
+The documentation helps, so I just follow it to make it work. Note that, Unirest doesn't use Jackson as mapper, but provides an interface (a simplified version of Jackson's `ObjectMapper`, called... `ObjectMapper`!) which you can implement using Jackson.
 
 === Security
 
