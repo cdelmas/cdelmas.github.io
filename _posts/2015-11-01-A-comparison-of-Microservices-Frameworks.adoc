@@ -286,11 +286,6 @@ AuthHandler auth = new BearerAuthHandler(new FacebookOauthTokenVerifier(httpClie
 router.route("/*").handler(auth);
 ----
 
-[NOTE]
-====
-At the time of publishing, this does not work properly. I will update the article when I find the solution.
-====
-
 === Monitoring
 
 Vertx offers a metrics system, with many different metrics. Of course, you can register your own metrics using the MetricsRegistry.
