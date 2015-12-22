@@ -1,0 +1,2 @@
+= Authentication and authorization using Auth0 and Vertx
+:hp-tags: OAuth, Auth0, Vertx, Security, REST API
