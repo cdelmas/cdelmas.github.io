@@ -1,0 +1,2 @@
+= Protecting a REST API using Auth0 and Vertx
+:hp-tags: OAuth, Auth0, Vertx, Security, REST API
