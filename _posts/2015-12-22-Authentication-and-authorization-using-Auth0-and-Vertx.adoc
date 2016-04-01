@@ -1,2 +1,12 @@
 = Authentication and authorization using Auth0 and Vertx
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
+
+_This is the first - short - post of a serie about Vertx._
+
+Imagine you have a REST API, written using Vertx. It is working well, but you want to go further: you want to protect it, or log the users using it (or doing whatever you want), or at least let authentorized users only use it.
+
+So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
+
+The solution I write about is a solution for a given problem, not a silver bullet. The need is: users can use the API given that they are authorized to do so, and they can create an account or use their existing Google or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
+
+For sure, you could use the provided APIs from Google, Facebook, ... But how can you federate your users, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as Auth0.
