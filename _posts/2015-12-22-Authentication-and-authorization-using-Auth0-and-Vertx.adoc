@@ -1,7 +1,6 @@
 = Authentication and authorization using Auth0 and Vertx
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
 
-_This is the first - short - post of a serie about Vertx._
 
 Imagine you have a REST API, written using http://vertx.io/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
 
@@ -14,30 +13,92 @@ For sure, you could use the provided APIs from Google, Facebook, ... Their imple
 *Paragraph about auth0, and JWT*
 
 
-All right, you just have to add some filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
+All right, you just have to add some kind of filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
 
 [source,java]
-=======
-include::https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[]
-=======
+-------
+AuthHandler authHandler = JWTAuthHandler.create(new Auth0TokenVerifier("myapp", applicationId, applicationSecret));
+authHandler.addAuthority("create:user");
+router.route("/api/*").handler(authHandler);
+-------
+https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[source]
 
-This will parse the Authorization header, extract the token, and pass it to a AuthHandler. You have to provide a AuthHandler, to parse the token and extract authorizations:
-
-[source,java]
-++++
-<div w3-include-html="https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java"></div>
-++++
+This will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, you have to provide that `AuthProvider`, to parse the token and extract authorizations:
 
 [source,java]
-=======
-include::https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[]
-=======
+-------
+public class Auth0TokenVerifier implements AuthProvider {
 
-Last, you just write a User class extending AbstractUser to handle the authorities:
+    private final String audience;
+    private final byte[] secret;
+    private final String appName;
+
+    // ...
+
+    @Override
+    public void authenticate(JsonObject credentials, Handler<AsyncResult<io.vertx.ext.auth.User>> resultHandler) {
+        String token = credentials.getString("jwt");
+        try {
+            Map<String, Object> tokenInfo = verifyToken(token);
+            String name = (String) tokenInfo.getOrDefault("name", "unknown"); // TODO fail?
+            List<String> permissions = findPermissions(tokenInfo);
+            User user = new User(name, permissions);
+            resultHandler.handle(Future.succeededFuture(user));
+        } catch (Exception e) {
+            resultHandler.handle(Future.failedFuture(e));
+        }
+    }
+
+    private Map<String, Object> verifyToken(String token) throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException, JWTVerifyException {
+        JWTVerifier verifier = new JWTVerifier(secret, audience);
+        return verifier.verify(token);
+    }
+
+    private List<String> findPermissions(Map<String, Object> tokenInfo) {
+        List<String> permissions = new ArrayList<>();
+        Map<String, Object> appMetadata = (Map<String, Object>) tokenInfo.get("app_metadata");
+        if (appMetadata == null) {
+            return permissions;
+        }
+        Map<String, Object> translatorApp = (Map<String, Object>) appMetadata.get(appName);
+        if (translatorApp == null) {
+            return permissions;
+        }
+        List<String> appPermissions = (List<String>) translatorApp.get("permissions");
+        if (appPermissions == null) {
+            return permissions;
+        }
+        permissions.addAll(appPermissions);
+        return permissions;
+    }
+}
+-------
+https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[source]
+
+Last, you just write a `User` class extending `AbstractUser` to handle the authorities:
 
 [source,java]
-=======
-include::https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[]
-=======
+-------
+public class User extends AbstractUser {
+
+    private final String name;
+    private final List<String> permissions;
+
+    public User(String name, List<String> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
+
+    @Override
+    protected void doIsPermitted(String permission, Handler<AsyncResult<Boolean>> resultHandler) {
+        resultHandler.handle(Future.succeededFuture(permissions.contains(permission)));
+    }
+
+    // ...
+
+}
+-------
+https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[source]
 
 Done. You have an API which is totally agnostic of the identity provider, and protected.
+
