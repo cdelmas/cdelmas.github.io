@@ -24,9 +24,8 @@ include::https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/781
 This will parse the Authorization header, extract the token, and pass it to a AuthHandler. You have to provide a AuthHandler, to parse the token and extract authorizations:
 
 
-[source,java]
 ++++
-include::https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java
+<script src="https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java"></script>
 ++++
 
 Last, you just write a User class extending AbstractUser to handle the authorities:
