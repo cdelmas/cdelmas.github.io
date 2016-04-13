@@ -17,22 +17,27 @@ For sure, you could use the provided APIs from Google, Facebook, ... Their imple
 All right, you just have to add some filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
 
 [source,java]
-++++
-include::https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java
-++++
+=======
+include::https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[]
+=======
 
 This will parse the Authorization header, extract the token, and pass it to a AuthHandler. You have to provide a AuthHandler, to parse the token and extract authorizations:
 
+[source,java]
+++++
+<div w3-include-html="https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java"></div>
+++++
 
-++++
-<script src="https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java"></script>
-++++
+[source,java]
+=======
+include::https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[]
+=======
 
 Last, you just write a User class extending AbstractUser to handle the authorities:
 
 [source,java]
-++++
-include::https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java
-++++
+=======
+include::https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[]
+=======
 
 Done. You have an API which is totally agnostic of the identity provider, and protected.
