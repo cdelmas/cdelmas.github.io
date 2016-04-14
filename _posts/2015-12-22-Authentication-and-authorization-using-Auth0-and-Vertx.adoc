@@ -27,7 +27,7 @@ https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
 * get an access token; this token is given to the API through the Authorization header, and the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
-* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain all the details you need by requiring the matching scopes (e.g. openid, email, name, roles, ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
+* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain arbitrary data that you get by requiring the matching scopes (e.g. openid, email, name, roles, app_metadata ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
 
 For our case, let's use JWT.
 
@@ -47,7 +47,15 @@ router.route("/api/*").handler(authHandler); <1>
 <2> add authority: only users with the permission "create:user" will be able to use the API
 
 
-The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, we have to provide that `AuthProvider`, to parse the token and extract the authorizations:
+The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, we have to provide that `AuthProvider`, to parse the token and extract the authorizations.
+
+For our purpose, the token will contain the authorizations as an object:
+
+[source,json]
+-------
+
+-------
+
 
 [source,java]
 .https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[source]
