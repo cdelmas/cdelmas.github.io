@@ -145,9 +145,11 @@ public class User extends AbstractUser {
 
 .The final word
 
-We're done. Now, we have an API which is totally agnostic of the identity provider, and protected.
+Well done. Now, we have an API which is totally agnostic of the identity provider, and protected.
 
-At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 social identity providers. You should try it!
+Feel free to comment and give feedback!
+
+NOTE: At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 social identity providers. You should try it!
 
 
 
