@@ -1,5 +1,6 @@
 = Authentication and authorization using Auth0 and Vertx
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
+:published_at: 2016-04-14
 
 
 Imagine we have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and to log their activity.
