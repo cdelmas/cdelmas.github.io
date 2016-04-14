@@ -2,7 +2,7 @@
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
 
 
-Imagine you have a REST API, written using http://vertx.io/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
+Imagine you have a resource server, exposing a REST API, written using http://vertx.io/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
 
 So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
 
