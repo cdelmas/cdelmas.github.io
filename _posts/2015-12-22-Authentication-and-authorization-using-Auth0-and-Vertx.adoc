@@ -117,6 +117,6 @@ https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c
 
 .The final word
 
-Done. You have an API which is totally agnostic of the identity provider, and protected. You can now register users using Facebook or Google+ as identity providers (at the time of writing, the free plan limits to 2 the number of identity providers).
+Done. You now have an API which is totally agnostic of the identity provider, and protected. You can now register users using Facebook or Google+ as identity providers (at the time of writing, the free plan limits to 2 the number of identity providers).
 
 
