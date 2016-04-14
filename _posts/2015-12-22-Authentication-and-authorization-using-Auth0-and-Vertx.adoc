@@ -10,7 +10,14 @@ The solution I write about is a solution for a given problem, not a silver bulle
 
 For sure, you could use the provided APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
-TODO *Paragraph about auth0, and JWT*
+https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols. Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
+
+We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
+
+* get an access token; this token is given to the API through the Authorization header, and the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
+* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain all the details you need by requiring the matching scopes (e.g. openid, email, name, roles, ...). For more, see https://auth0.com/docs/auth-api[the auth API doc].
+
+For our case, let's use JWT.
 
 
 All right, you just have to add some kind of filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
