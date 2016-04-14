@@ -53,7 +53,17 @@ For our purpose, the token will contain the authorizations as an object:
 
 [source,json]
 -------
+{
+  ...
 
+  "app_metadata": {
+    "myapp": {
+      "permissions": ["create:user", "update:user","read:user"]
+    }
+  }
+  
+  ...
+}
 -------
 
 
