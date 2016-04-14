@@ -37,6 +37,7 @@ For our case, let's use JWT.
 Vertx provides a way to handle JWT, it is as easy as adding a handler:
 
 [source,java]
+.https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[source]
 -------
 AuthHandler authHandler = JWTAuthHandler.create(new Auth0TokenVerifier("myapp", applicationId, applicationSecret));
 authHandler.addAuthority("create:user"); <2>
@@ -45,12 +46,11 @@ router.route("/api/*").handler(authHandler); <1>
 <1> add the handler
 <2> add authority: only users with the permission "create:user" will be able to use the API
 
-https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[source]
-
 
 The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, you have to provide that `AuthProvider`, to parse the token and extract authorizations:
 
 [source,java]
+.https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[source]
 -------
 public class Auth0TokenVerifier implements AuthProvider {
 
@@ -75,11 +75,11 @@ public class Auth0TokenVerifier implements AuthProvider {
     }
 
     private Map<String, Object> verifyToken(String token) throws NoSuchAlgorithmException, InvalidKeyException, IOException, SignatureException, JWTVerifyException {
-        JWTVerifier verifier = new JWTVerifier(secret, audience);
+        JWTVerifier verifier = new JWTVerifier(secret, audience); <1>
         return verifier.verify(token);
     }
 
-    private List<String> findPermissions(Map<String, Object> tokenInfo) {
+    private List<String> findPermissions(Map<String, Object> tokenInfo) {<2>
         List<String> permissions = new ArrayList<>();
         Map<String, Object> appMetadata = (Map<String, Object>) tokenInfo.get("app_metadata");
         if (appMetadata == null) {
@@ -98,7 +98,8 @@ public class Auth0TokenVerifier implements AuthProvider {
     }
 }
 -------
-https://gist.githubusercontent.com/cdelmas/826d38d5eccebdb1ff9e/raw/a36d5f9e42f65bdc50d67d6d56757d8ea9e2e5c9/Auth0TokenVerifier.java[source]
+<1> Token verification: the token is decoded and the signature is verified. You can debug a JWT http://jwt.io[here].
+<2> Permissions are extracted from the token. Auth0 provides a app_metadata object to store arbitrary data such as roles.
 
 Last, you just write a `User` class extending `AbstractUser` to handle the authorities:
 
