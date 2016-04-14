@@ -5,11 +5,11 @@
 
 Imagine we have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and to log their activity.
 
-.The big world of authentication and authorization
+== The big world of authentication and authorization
 
 We ask Google, and find tons of examples for tons of libraries and protocols: SAML, WS-Federation, OAuth, OpenId. Quite interesting, but very frightening, isn't it?
 
-.The need
+== The need
 
 Let's focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.
 
@@ -21,7 +21,7 @@ Good, it seems that it fulfills our needs, as it is implemented by almost all ma
 
 NOTE: The login workflow is out of scope of this post. You can either create a https://auth0.com/docs/quickstart/spa/angularjs/java[login UI] or call directly the Auth0 https://auth0.com/docs/auth-api[authentication API].
 
-.Auth0 to the rescue
+== Auth0 to the rescue
 
 https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols.  Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
 
@@ -33,7 +33,7 @@ We have two main choices for our use case when authenticating on the identity pr
 For our case, let's use JWT.
 
 
-.Implementing the solution
+== Implementing the solution
 
 Vertx provides a way to handle JWT, it is as easy as adding a handler:
 
@@ -144,7 +144,7 @@ public class User extends AbstractUser {
 -------
 
 
-.The final word
+== The final word
 
 Well done. Now, we have an API which is totally agnostic of the identity provider, and protected.
 
