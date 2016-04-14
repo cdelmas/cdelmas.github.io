@@ -2,7 +2,7 @@
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
 
 
-Imagine we have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and log activity.
+Imagine we have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and to log their activity.
 
 .The big world of authentication and authorization
 
