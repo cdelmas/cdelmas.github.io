@@ -6,27 +6,23 @@ Imagine we have a resource server, exposing a REST API, written using http://ver
 
 .The big world of authentication and authorization
 
-We ask Google, and find tons of examples for tons of libraries and protocols: SAML, WS-Federation, OAuth, OpenId. You will probably be a bit lost, especially if you are not used to authentication / authorization.
+We ask Google, and find tons of examples for tons of libraries and protocols: SAML, WS-Federation, OAuth, OpenId. Quite interesting, but very frightening, isn't it?
 
 .The need
 
-The need is quite simple: users can use the API provided that they are authorized to do so.
+Let's focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.
 
 NOTE: The login workflow is out of scope of this post. You can either create a https://auth0.com/docs/quickstart/spa/angularjs/java[login UI] or call directly the Auth0 https://auth0.com/docs/auth-api[authentication API].
 
 We don't want to manage your own users database. It's not fun.footnote:[At least for me.]. Moreover, for our users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
 
-*à retravailler*
+What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. Good, it seems that it fulfills our needs. Bonus, it is implemented by almost all major identity providers. The problem is: how do we integrate it to your API?
 
-What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. , which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
-
-For sure, you could use the APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
-
-*fin retravailler* 
+For sure, we could use the APIs from Google, Facebook, directly... Their implementation of OAuth2 is quite different, but there are SDK to help. But we want to federate users from differents sources, and assign them authorizations whatever the identity provider; how can we do that? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
 .Auth0 to the rescue
 
-https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols. It has a very interesting free plan, so no excuse to not try it! Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
+https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols.  Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
 
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
@@ -38,15 +34,19 @@ For our case, let's use JWT.
 
 .Implementing the solution
 
-All right, you just have to add some kind of filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
+Vertx provides a way to handle JWT, it is as easy as adding a handler:
 
 [source,java]
 -------
 AuthHandler authHandler = JWTAuthHandler.create(new Auth0TokenVerifier("myapp", applicationId, applicationSecret));
-authHandler.addAuthority("create:user");
-router.route("/api/*").handler(authHandler);
+authHandler.addAuthority("create:user"); <2>
+router.route("/api/*").handler(authHandler); <1>
 -------
+<1> add the handler
+<2> add authority: only users with the permission "create:user" will be able to use the API
+
 https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[source]
+
 
 The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, you have to provide that `AuthProvider`, to parse the token and extract authorizations:
 
