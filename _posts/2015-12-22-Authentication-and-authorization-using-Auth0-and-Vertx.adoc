@@ -2,7 +2,7 @@
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
 
 
-Imagine you have a resource server, exposing a REST API, written using http://vertx.io/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
+Imagine you have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
 
 So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
 
@@ -10,7 +10,7 @@ The solution I write about is a solution for a given problem, not a silver bulle
 
 For sure, you could use the provided APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
-https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols. Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
+https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols. It has a very interesting free plan, so no excuse to not try it! Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
 
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
