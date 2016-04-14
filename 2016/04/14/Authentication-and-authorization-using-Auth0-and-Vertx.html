@@ -23,7 +23,7 @@
     <meta property="og:description" content="Imagine we have a resource server, exposing a REST API, written using Vertx. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and..." />
     <meta property="og:url" content="https://cdelmas.github.io/2016/04/14/Authentication-and-authorization-using-Auth0-and-Vertx.html" />
     <meta property="article:published_time" content="2016-04-13T22:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-04-14T15:09:45.108Z" />
+    <meta property="article:modified_time" content="2016-04-14T15:21:16.290Z" />
     <meta property="article:tag" content="OAuth" />
     <meta property="article:tag" content="Auth0" />
     <meta property="article:tag" content="Vertx" />
@@ -50,7 +50,7 @@
     "headline": "Authentication and authorization using Auth0 and Vertx",
     "url": "https://cdelmas.github.io/2016/04/14/Authentication-and-authorization-using-Auth0-and-Vertx.html",
     "datePublished": "2016-04-13T22:00:00.000Z",
-    "dateModified": "2016-04-14T15:09:45.108Z",
+    "dateModified": "2016-04-14T15:21:16.290Z",
     "keywords": "OAuth,  Auth0,  Vertx,  Security,  REST API",
     "description": "Imagine we have a resource server, exposing a REST API, written using Vertx. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and..."
 }
@@ -85,10 +85,10 @@
 <p>Let&#8217;s focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.</p>
 </div>
 <div class="paragraph">
-<p>We don&#8217;t want to manage our own users database. It&#8217;s not fun.<span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?</p>
+<p>We don&#8217;t want to manage our own users database. It&#8217;s not fun.footnote[At least for me.]. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?</p>
 </div>
 <div class="paragraph">
-<p>What do social providers have in common? OAuth2.<span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>. Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it.</p>
+<p>What do social providers have in common? OAuth2.footnote[Well, they probably have many more in common.]. Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it.</p>
 </div>
 <div class="paragraph">
 <p>Good, it seems that it fulfills our needs, as it is implemented by almost all major identity providers. But there is a problem: their implementations of OAuth2 are quite different, although there are SDK to help. We want to federate users from different providers, and assign them authorizations whatever the provider; how can we do that? The solution is to use a specialized service, such as <a href="https://auth0.com/">Auth0</a>.</p>
@@ -274,15 +274,6 @@ At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 so
 </td>
 </tr>
 </table>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a> At least for me.
-</div>
-<div class="footnote" id="_footnote_2">
-<a href="#_footnoteref_2">2</a> Well, they probably have many more in common.
-</div>
 </div>
         </div>
 
