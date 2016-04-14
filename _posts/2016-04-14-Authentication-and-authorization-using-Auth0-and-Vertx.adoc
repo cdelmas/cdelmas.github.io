@@ -13,9 +13,9 @@ We ask Google, and find tons of examples for tons of libraries and protocols: S
 
 Let's focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.
 
-We don't want to manage our own users database. It's not fun.footnote[At least for me.]. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?
+We don't want to manage our own users database. It's not fun (At least for me). Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?
 
-What do social providers have in common? OAuth2.footnote[Well, they probably have many more in common.]. Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it. 
+What do social providers have in common? OAuth2 (Well, they probably have many more in common). Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it. 
 
 Good, it seems that it fulfills our needs, as it is implemented by almost all major identity providers. But there is a problem: their implementations of OAuth2 are quite different, although there are SDK to help. We want to federate users from different providers, and assign them authorizations whatever the provider; how can we do that? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
