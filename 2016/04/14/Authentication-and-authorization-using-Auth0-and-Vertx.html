@@ -23,7 +23,7 @@
     <meta property="og:description" content="Imagine we have a resource server, exposing a REST API, written using Vertx. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and..." />
     <meta property="og:url" content="https://cdelmas.github.io/2016/04/14/Authentication-and-authorization-using-Auth0-and-Vertx.html" />
     <meta property="article:published_time" content="2016-04-13T22:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-04-14T15:22:13.420Z" />
+    <meta property="article:modified_time" content="2016-04-14T15:23:24.724Z" />
     <meta property="article:tag" content="OAuth" />
     <meta property="article:tag" content="Auth0" />
     <meta property="article:tag" content="Vertx" />
@@ -50,7 +50,7 @@
     "headline": "Authentication and authorization using Auth0 and Vertx",
     "url": "https://cdelmas.github.io/2016/04/14/Authentication-and-authorization-using-Auth0-and-Vertx.html",
     "datePublished": "2016-04-13T22:00:00.000Z",
-    "dateModified": "2016-04-14T15:22:13.420Z",
+    "dateModified": "2016-04-14T15:23:24.724Z",
     "keywords": "OAuth,  Auth0,  Vertx,  Security,  REST API",
     "description": "Imagine we have a resource server, exposing a REST API, written using Vertx. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and..."
 }
@@ -73,15 +73,25 @@
         </header>
 
         <div class="text" id="js-post-content">
-            <div class="paragraph">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>Imagine we have a resource server, exposing a REST API, written using <a href="http://vertx.io/docs/vertx-web/java/">Vertx</a>. It is working well, but we want to go further: we would like to identify our users, both to let only authorized ones access our app and to log their activity.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_big_world_of_authentication_and_authorization">The big world of authentication and authorization</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">The big world of authentication and authorization</div>
 <p>We ask Google, and find tons of examples for tons of libraries and protocols: SAML, WS-Federation, OAuth, OpenId. Quite interesting, but very frightening, isn&#8217;t it?</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_need">The need</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">The need</div>
 <p>Let&#8217;s focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.</p>
 </div>
 <div class="paragraph">
@@ -105,8 +115,12 @@ The login workflow is out of scope of this post. You can either create a <a href
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_auth0_to_the_rescue">Auth0 to the rescue</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">Auth0 to the rescue</div>
 <p><a href="https://auth0.com/">Auth0</a> is an Identity Hub as a Service, which support a large number of identity providers and protocols.  Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2.</p>
 </div>
 <div class="paragraph">
@@ -125,8 +139,12 @@ The login workflow is out of scope of this post. You can either create a <a href
 <div class="paragraph">
 <p>For our case, let&#8217;s use JWT.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementing_the_solution">Implementing the solution</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">Implementing the solution</div>
 <p>Vertx provides a way to handle JWT, it is as easy as adding a handler:</p>
 </div>
 <div class="listingblock">
@@ -256,8 +274,12 @@ router.route("/api/*").handler(authHandler); <i class="conum" data-value="1"></i
 }</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_final_word">The final word</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<div class="title">The final word</div>
 <p>Well done. Now, we have an API which is totally agnostic of the identity provider, and protected.</p>
 </div>
 <div class="paragraph">
@@ -274,6 +296,8 @@ At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 so
 </td>
 </tr>
 </table>
+</div>
+</div>
 </div>
         </div>
 
