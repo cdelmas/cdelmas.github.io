@@ -104,6 +104,7 @@ public class Auth0TokenVerifier implements AuthProvider {
 Last, you just write a `User` class extending `AbstractUser` to handle the authorities:
 
 [source,java]
+.https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[source]
 -------
 public class User extends AbstractUser {
 
@@ -124,13 +125,12 @@ public class User extends AbstractUser {
 
 }
 -------
-https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[source]
 
 .The final word
 
 We're done. Now, we have an API which is totally agnostic of the identity provider, and protected.
 
-At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 social identity providers.
+At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 social identity providers. You should try it!
 
 
 
