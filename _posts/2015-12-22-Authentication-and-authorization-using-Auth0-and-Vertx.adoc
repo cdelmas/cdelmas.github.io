@@ -16,9 +16,9 @@ NOTE: The login workflow is out of scope of this post. You can either create a h
 
 We don't want to manage our own users database. It's not fun.footnote:[At least for me.]. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?
 
-What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. Good, it seems that it fulfills our needs, as it is implemented by almost all major identity providers. The problem is: how do we integrate it to your API?
+What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it. 
 
-For sure, we could use the APIs from Google, Facebook, directly... Their implementation of OAuth2 is quite different, but there are SDK to help. But we want to federate users from differents sources, and assign them authorizations whatever the identity provider; how can we do that? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
+Good, it seems that it fulfills our needs, as it is implemented by almost all major identity providers. But there is a problem: their implementation of OAuth2 is quite different, although there are SDK to help. We want to federate users from different providers, and assign them authorizations whatever the provider; how can we do that? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
 .Auth0 to the rescue
 
