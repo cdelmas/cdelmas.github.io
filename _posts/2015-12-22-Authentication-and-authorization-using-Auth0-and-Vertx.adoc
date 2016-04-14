@@ -12,13 +12,13 @@ We ask Google, and find tons of examples for tons of libraries and protocols: S
 
 Let's focus on our need, which is quite simple: users can use the API provided that they are authorized to do so.
 
-NOTE: The login workflow is out of scope of this post. You can either create a https://auth0.com/docs/quickstart/spa/angularjs/java[login UI] or call directly the Auth0 https://auth0.com/docs/auth-api[authentication API].
-
 We don't want to manage our own users database. It's not fun.footnote:[At least for me.]. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?
 
 What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. Simply put, we will get a token from the identity provider, and we will set the Authorization header of HTTP request with it. 
 
 Good, it seems that it fulfills our needs, as it is implemented by almost all major identity providers. But there is a problem: their implementation of OAuth2 is quite different, although there are SDK to help. We want to federate users from different providers, and assign them authorizations whatever the provider; how can we do that? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
+
+NOTE: The login workflow is out of scope of this post. You can either create a https://auth0.com/docs/quickstart/spa/angularjs/java[login UI] or call directly the Auth0 https://auth0.com/docs/auth-api[authentication API].
 
 .Auth0 to the rescue
 
@@ -26,8 +26,8 @@ https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large
 
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
-* get an access token; this token is given to the API through the Authorization header, and the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
-* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain arbitrary data that you get by requiring the matching scopes (e.g. openid, email, name, roles, app_metadata ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
+* get an access token; the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
+* get an id token using http://openid.net/connect[OpenId Connect], this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token], aka JWS; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server. The token can contain arbitrary data by claiming scopes (e.g. openid, email, name, roles, app_metadata ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
 
 For our case, let's use JWT.
 
