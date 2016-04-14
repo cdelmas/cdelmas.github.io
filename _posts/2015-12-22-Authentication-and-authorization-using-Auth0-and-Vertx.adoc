@@ -49,19 +49,17 @@ router.route("/api/*").handler(authHandler); <1>
 
 The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, we have to provide that `AuthProvider`, to parse the token and extract the authorizations.
 
-For our purpose, the token will contain the authorizations as an object:
+For our purpose, the JWT will contain the authorizations as an object:
 
 [source,json]
 -------
 {
   ...
-
   "app_metadata": {
     "myapp": {
       "permissions": ["create:user", "update:user","read:user"]
     }
   }
-  
   ...
 }
 -------
@@ -119,7 +117,7 @@ public class Auth0TokenVerifier implements AuthProvider {
 <1> Token verification: the token is decoded and the signature is verified. You can debug a JWT http://jwt.io[here].
 <2> Permissions are extracted from the token. Auth0 provides a app_metadata object to store arbitrary data such as roles.
 
-Last, we write a `User` class extending `AbstractUser` to handle the authorities:
+Finally, we write a `User` class extending `AbstractUser` to handle the authorities:
 
 [source,java]
 .https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[source]
@@ -143,6 +141,7 @@ public class User extends AbstractUser {
 
 }
 -------
+
 
 .The final word
 
