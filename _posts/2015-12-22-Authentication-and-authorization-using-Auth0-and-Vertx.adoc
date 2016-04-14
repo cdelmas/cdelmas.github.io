@@ -6,11 +6,11 @@ Imagine you have a resource server, exposing a REST API, written using http://ve
 
 .The big world of authentication and authorization
 
-You don't want to manage your own users database. Furthermore, for your users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
+You don't want to manage your own users database. There is already solutions existing, and it's not fun for you. Moreover, for your users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
 
 So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
 
-The solution I write about is a solution for a given problem, not a silver bullet. The need is: users can use the API given that they are authorized to do so, and they can create an account or use their existing Google or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
+The solution I write about is a solution for a given problem, not a silver bullet. The need is: users can use the API given that they are authorized to do so, and they can create an account or use their existing Google+ or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
 
 For sure, you could use the provided APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
 
