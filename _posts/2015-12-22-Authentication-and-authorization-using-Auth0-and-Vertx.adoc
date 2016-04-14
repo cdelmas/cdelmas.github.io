@@ -6,15 +6,17 @@ Imagine you have a resource server, exposing a REST API, written using http://ve
 
 .The big world of authentication and authorization
 
-You don't want to manage your own users database. There is already solutions existing, and it's not fun for you. Moreover, for your users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
+You don't want to manage your own users database. It's not fun. Moreover, for your users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
 
 So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
 
 .The need
 
-The need is quite simple: users can use the API given that they are authorized to do so. They can create an account or use their existing Google+ or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
+The need is quite simple: users can use the API given that they are authorized to do so. They can use their existing Google+ or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
 
 For sure, you could use the provided APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
+
+NOTE: the login workflow is out of scope of this post. You can either create a login UI or call directly the Auth0 authentication API.
 
 .Auth0 to the rescue
 
@@ -23,7 +25,7 @@ https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
 * get an access token; this token is given to the API through the Authorization header, and the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
-* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain all the details you need by requiring the matching scopes (e.g. openid, email, name, roles, ...). For more, see https://auth0.com/docs/auth-api[the auth API doc].
+* get an id token using openid connect, this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token]; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server, because it can contain all the details you need by requiring the matching scopes (e.g. openid, email, name, roles, ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
 
 For our case, let's use JWT.
 
@@ -40,7 +42,7 @@ router.route("/api/*").handler(authHandler);
 -------
 https://gist.githubusercontent.com/cdelmas/dcb45c703a25249147fe/raw/78155e103a0dcaa0714ac1d5e6109482489edba5/Main.java[source]
 
-This will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, you have to provide that `AuthProvider`, to parse the token and extract authorizations:
+The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, you have to provide that `AuthProvider`, to parse the token and extract authorizations:
 
 [source,java]
 -------
@@ -119,6 +121,10 @@ https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c
 
 .The final word
 
-Done. You now have an API which is totally agnostic of the identity provider, and protected. You can now register users using Facebook or Google+ as identity providers (at the time of writing, the free plan limits to 2 the number of identity providers).
+We're done. Now, we have an API which is totally agnostic of the identity provider, and protected.
+
+At the time of writing, Auth0 has a free plan allowing up to 7000 users and 2 social identity providers.
+
+
 
 
