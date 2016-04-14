@@ -49,7 +49,7 @@ router.route("/api/*").handler(authHandler); <1>
 
 The `JWTAuthHandler` will parse the Authorization header, extract the token, and pass it to a `AuthProvider`. So next, we have to provide that `AuthProvider`, to parse the token and extract the authorizations.
 
-For our purpose, the JWT will contain the authorizations as an object:
+For our purpose, the JWT will contain the authorizations in a claim object named `app_metadata`:
 
 [source,json]
 -------
