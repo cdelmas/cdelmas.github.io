@@ -27,7 +27,7 @@ https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large
 We have two main choices for our use case when authenticating on the identity provider (via Auth0): 
 
 * get an access token; the resource server must call the authorization server (auth0) to validate it and get further details (such as the user profile)
-* get an id token using http://openid.net/connect[OpenId Connect], this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token], aka JWS; in this case, the resource server just have to know the secret key to decode the token, and is totally agnostic of the authorization server. The token can contain arbitrary data by claiming scopes (e.g. openid, email, name, roles, app_metadata ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
+* get an id token using http://openid.net/connect[OpenId Connect], this token being a (signed) https://tools.ietf.org/html/rfc7519[Json Web Token], aka JWS; in this case, the resource server just have to know the secret key to validate the token, and is totally agnostic of the authorization server. The token can contain arbitrary data by claiming scopes (e.g. openid, email, name, roles, app_metadata ...). For more, see https://auth0.com/docs/auth-api[the authentication API doc].
 
 For our case, let's use JWT.
 
