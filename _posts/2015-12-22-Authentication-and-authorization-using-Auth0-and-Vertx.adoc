@@ -14,7 +14,7 @@ Let's focus on our need, which is quite simple: users can use the API provided t
 
 NOTE: The login workflow is out of scope of this post. You can either create a https://auth0.com/docs/quickstart/spa/angularjs/java[login UI] or call directly the Auth0 https://auth0.com/docs/auth-api[authentication API].
 
-We don't want to manage our own users database. It's not fun.footnote:[At least for me.]. Moreover, for our users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
+We don't want to manage our own users database. It's not fun.footnote:[At least for me.]. Moreover, for our users, it would be another account to create and password to remind. What about reusing Facebook or Twitter as the identity provider?
 
 What do social providers have in common? OAuth2.footnote:[Well, they probably have many more in common.]. Good, it seems that it fulfills our needs. Bonus, it is implemented by almost all major identity providers. The problem is: how do we integrate it to your API?
 
