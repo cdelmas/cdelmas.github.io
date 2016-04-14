@@ -2,13 +2,19 @@
 :hp-tags: OAuth, Auth0, Vertx, Security, REST API
 
 
-Imagine you have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but you want to go further: you want to protect it (let authorized users only), or log the users using it, or...
+Imagine you have a resource server, exposing a REST API, written using http://vertx.io/docs/vertx-web/java/[Vertx]. It is working well, but you want to go further: you would like to identify your users, both to let only authorized ones access your app and log activity.
+
+.The big world of authentication and authorization
+
+You don't want to manage your own users database. Furthermore, for your users, it would be another account (and password) to create. What about reusing Facebook or Twitter as the identity provider?
 
 So, as an autonomous developer, you ask Google, and you find tons of examples for tons of libraries and protocols. You will probably be a bit lost, especially if you are not used to authentication / authorization.
 
 The solution I write about is a solution for a given problem, not a silver bullet. The need is: users can use the API given that they are authorized to do so, and they can create an account or use their existing Google or Facebook account. You heard about OAuth2, which fulfills your needs (and is implemented by many major identity providers). The problem is: how do you integrate it to your API?
 
 For sure, you could use the provided APIs from Google, Facebook, ... Their implementation of OAuth2 is quite different, but there are SDK to help. But how can you federate users from differents sources, and assign them authorizations whatever the identity provider? The solution is to use a specialized service, such as https://auth0.com/[Auth0].
+
+.Auth0 to the rescue
 
 https://auth0.com/[Auth0] is an Identity Hub as a Service, which support a large number of identity providers and protocols. It has a very interesting free plan, so no excuse to not try it! Among all these protocols (I never imagined that there were so many protocols!), our target: OAuth2. 
 
@@ -19,6 +25,8 @@ We have two main choices for our use case when authenticating on the identity pr
 
 For our case, let's use JWT.
 
+
+.Implementing the solution
 
 All right, you just have to add some kind of filter to your application. Vertx provides a way to handle JWT, so it is quite easy to do:
 
@@ -107,5 +115,8 @@ public class User extends AbstractUser {
 -------
 https://gist.githubusercontent.com/cdelmas/25d0a3d8505dff471844/raw/01db108a429c8c34695000aa594a64d3d06a238d/User.java[source]
 
-Done. You have an API which is totally agnostic of the identity provider, and protected.
+.The final word
+
+Done. You have an API which is totally agnostic of the identity provider, and protected. You can now register users using Facebook or Google+ as identity providers (at the time of writing, the free plan limits to 2 the number of identity providers).
+
 
