@@ -1,11 +1,16 @@
 = Performance of Microservices frameworks
-:flag: Tech,Microservices,REST,performance
+:tag: Tech,Microservices,REST,performance
 
 
 This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A-comparison-of-Microservices-Frameworks.html[Microservices Frameworks].
 
+Tech, Microservices, REST
+
 Using Gatling to measure the performance.
 
 Methodology
+
+Get on a /hello endpoint, with 200 users making 1000 requests each.
+Response is json-encoded POJO
 
 Results
