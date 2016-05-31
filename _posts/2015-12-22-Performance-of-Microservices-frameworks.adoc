@@ -1,12 +1,18 @@
 = Performance of Microservices frameworks
-:tag: Tech,Microservices,REST,performance
+:hp-tags: Tech,Microservices,REST,performance
 
 
 This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A-comparison-of-Microservices-Frameworks.html[Microservices Frameworks].
 
-Tech, Microservices, REST
+Size of the package
+14M     ../spring-boot/build/libs/spring-boot-1.0.jar
+5,0M    ../restlet-server/build/libs/restlet-server-1.0-all.jar
+16M     ../dropwizard/build/libs/dropwizard-1.0-all.jar
+4,9M    ../sparkjava/build/libs/sparkjava-1.0-all.jar
+6,0M    ../vertx/build/libs/vertx-1.0-all.jar
 
-Using Gatling to measure the performance.
+
+Using Gatling to measure the performance
 
 Methodology
 
@@ -14,3 +20,5 @@ Get on a /hello endpoint, with 200 users making 1000 requests each.
 Response is json-encoded POJO
 
 Results
+
+mean, throughput, errors
