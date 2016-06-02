@@ -6,14 +6,22 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 Size of the package
 
-- 7,3M    ./apollo/build/libs/apollo-1.0-all.jar
-- 15M     ./dropwizard/build/libs/dropwizard-1.0-all.jar
-- 4,2M    ./restlet-server/build/libs/restlet-server-1.0-all.jar
-- 4,1M    ./sparkjava/build/libs/sparkjava-1.0-all.jar
-- 13M     ./spring-boot/build/libs/spring-boot-1.0.jar
-- 5,1M    ./vertx/build/libs/vertx-1.0-all.jar
+- 7,3M    apollo
+- 15M     dropwizard
+- 4,2M    restlet
+- 4,1M    sparkjava
+- 13M     spring-boot
+- 5,1M    vertx
 
 Startup speed
+
+- ms    apollo
+- ms    dropwizard
+- ms    restlet
+- ms    sparkjava
+- ms    spring-boot
+- ms    vertx
+
 
 
 Using Gatling to measure the performance
