@@ -28,7 +28,7 @@ Using Gatling to measure the performance
 
 Methodology
 
-Get on a /hello endpoint, with 200 users making 1000 requests each.
+Get on a /hello endpoint, with 200 users making 1000 requests each (total: 200000), test is time boxed (limit: 5 minutes).
 Response is json-encoded POJO
 
 Results
