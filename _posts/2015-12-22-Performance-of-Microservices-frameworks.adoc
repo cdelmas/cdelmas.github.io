@@ -9,8 +9,11 @@ Size of the package
 - 7,3M    apollo
 - 15M     dropwizard
 - 4,2M    restlet
+- xxM     restlet / Jetty
 - 4,1M    sparkjava
-- 13M     spring-boot
+- 13M     spring-boot / Jetty
+- xxM	  spring-boot / Tomcat
+- xxM     spring-boot / Undertow
 - 5,1M    vertx
 
 Startup speed
