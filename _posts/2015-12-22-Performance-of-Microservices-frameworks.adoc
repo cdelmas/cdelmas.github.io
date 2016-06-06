@@ -12,7 +12,7 @@ Size of the package
 - xxM     restlet / Jetty
 - 4,1M    sparkjava
 - 13M     spring-boot / Jetty
-- xxM	  spring-boot / Tomcat
+- 14xxM	  spring-boot / Tomcat
 - xxM     spring-boot / Undertow
 - 5,1M    vertx
 
