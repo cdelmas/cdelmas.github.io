@@ -19,13 +19,18 @@ Size of the package
 
 Startup speed
 
-- ms    apollo
-- ms    dropwizard
-- ms    restlet
-- ms    sparkjava
-- ms    spring-boot
-- ms    vertx
+- 560 ms    apollo
+- 1047 ms    dropwizard
+- 110 ms    restlet
+- 290 ms    sparkjava
+- 6905 ms    spring-boot
+- 7250 ms    vertx
 
+
+GET
+
+
+POST
 
 
 Using Gatling to measure the performance
