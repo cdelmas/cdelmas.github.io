@@ -4,6 +4,54 @@
 
 This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A-comparison-of-Microservices-Frameworks.html[Microservices Frameworks].
 
+[options="header"]
+|===
+| Framework 
+| Package size 
+| Startup time 
+4+| GET
+4+| POST
+
+| 
+| 
+| 
+| total
+| failed
+| mean (ms)
+| throughput (req/s)
+| total
+| failed
+| mean (ms)
+| throughput (req/s)
+
+
+| Apollo
+| 7.3 M
+| 560 ms
+| 
+|
+|
+|
+|
+|
+|
+|
+
+|
+|
+| 
+| 
+| 
+| 
+|
+|
+|
+|
+|
+
+
+|===
+
 Size of the package
 
 - 7,3M    apollo
@@ -27,10 +75,25 @@ Startup speed
 - 7250 ms    vertx
 
 
-GET
+GET / POST
+mean
+- 790 ms    apollo (async: 600ms)
+- 270 ms    dropwizard
+- 205 ms    restlet
+-  ms restlet / Jetty
+- ms restlet / Simple
+- 290 ms    sparkjava
+- 6905 ms    spring-boot
+- 7250 ms    vertx
 
+throughput
+- 560 r/s    apollo
+- 1047 r/s    dropwizard
+- 110 r/s    restlet
+- 290 r/s    sparkjava
+- 6905 r/s    spring-boot
+- 7250 r/s    vertx
 
-POST
 
 
 Using Gatling to measure the performance
@@ -38,7 +101,10 @@ Using Gatling to measure the performance
 Methodology
 
 Get on a /hello endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 5 minutes).
+Post on a /hello endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 10 minutes).
+
 Response is json-encoded POJO
+Payload is json.
 
 Results
 
