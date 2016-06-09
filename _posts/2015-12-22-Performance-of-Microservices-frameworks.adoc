@@ -33,28 +33,6 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 
 
-GET / POST
-mean
-
-- 790 ms    apollo (async: 600ms)
-- 270 ms    dropwizard
-- 205 ms    restlet
--  ms restlet / Jetty
-- ms restlet / Simple
-- 290 ms    sparkjava
-- 6905 ms    spring-boot
-- 7250 ms    vertx
-
-throughput
-
-- 560 r/s    apollo
-- 1047 r/s    dropwizard
-- 110 r/s    restlet
-- 290 r/s    sparkjava
-- 6905 r/s    spring-boot
-- 7250 r/s    vertx
-
-
 
 Using Gatling to measure the performance
 
