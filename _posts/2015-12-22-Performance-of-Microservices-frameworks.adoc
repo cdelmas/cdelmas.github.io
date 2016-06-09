@@ -10,8 +10,6 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | | | | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* 
 
-| Apollo | 7.3  | 560 |  | | | | | | |
-
 | Dropwizard |15 | 1047  |  |  | | | | | | 
 
 | Restlet |4,2 | 110 |  |  | | | | | | 
