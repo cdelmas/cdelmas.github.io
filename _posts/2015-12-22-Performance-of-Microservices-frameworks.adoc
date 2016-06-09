@@ -9,7 +9,8 @@ Size of the package
 - 7,3M    apollo
 - 15M     dropwizard
 - 4,2M    restlet
-- xxM     restlet / Jetty
+- 5,8M     restlet / Jetty
+- 4,5M     restlet / Simple
 - 4,1M    sparkjava
 - 13M     spring-boot / Jetty
 - 14M	  spring-boot / Tomcat
