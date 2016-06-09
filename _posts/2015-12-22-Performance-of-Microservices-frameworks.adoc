@@ -12,47 +12,27 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | Apollo | 7.3  | 560 |  | | | | | | |
 
-| Dropwizard | |  |  |  | | | | | | 
+| Dropwizard |15 | 1047  |  |  | | | | | | 
 
-| Restlet | |  |  |  | | | | | | 
+| Restlet |4,2 | 110 |  |  | | | | | | 
 
-| Restlet / Jetty | |  |  |  | | | | | | 
+| Restlet / Jetty | 5,8| 110 |  |  | | | | | | 
 
-| Restlet / Simple | |  |  |  | | | | | | 
+| Restlet / Simple |4,5 | 110 |  |  | | | | | | 
 
-| Sparkjava | |  |  |  | | | | | | 
+| Sparkjava |4,1 | 290 |  |  | | | | | | 
 
-| Spring Boot / Tomcat | |  |  |  | | | | | | 
+| Spring Boot / Tomcat | 14 |6905 |  |  |  | | | | |  
 
-| Spring Boot / Jetty | |  |  |  | | | | | | 
+| Spring Boot / Jetty | 13 | 6905 |  |  |  | | | | |  
 
-| Spring Boot / Undertow | |  |  |  | | | | | | 
+| Spring Boot / Undertow | 14 | 6905 |  |  |  | | | | |  
 
-| vertx | |  |  |  | | | | | | 
+| vertx |5,1 | 7250 |  |  | | | | | | 
 
 |===
 
-Size of the package
 
-- 7,3M    apollo
-- 15M     dropwizard
-- 4,2M    restlet
-- 5,8M     restlet / Jetty
-- 4,5M     restlet / Simple
-- 4,1M    sparkjava
-- 13M     spring-boot / Jetty
-- 14M	  spring-boot / Tomcat
-- 14M     spring-boot / Undertow
-- 5,1M    vertx
-
-Startup speed
-
-- 560 ms    apollo
-- 1047 ms    dropwizard
-- 110 ms    restlet
-- 290 ms    sparkjava
-- 6905 ms    spring-boot
-- 7250 ms    vertx
 
 
 GET / POST
