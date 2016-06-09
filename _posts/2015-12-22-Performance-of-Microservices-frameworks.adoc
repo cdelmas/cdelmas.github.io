@@ -8,7 +8,7 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 |===
 | Framework | Package size (MB) | Startup time (ms) 4+| GET (over 5 min) 4+| POST (over 10 min)
 
-| | | | total | failed | mean (ms) | throughput (req/s) | total | failed | mean (ms) | throughput (req/s) 
+| | | | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* 
 
 | Apollo | 7.3  | 560 |  | | | | | | |
 
