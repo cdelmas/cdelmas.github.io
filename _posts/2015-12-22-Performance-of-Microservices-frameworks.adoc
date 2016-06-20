@@ -18,15 +18,15 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | Restlet / Simple |4,5 | 110 | 200000 | 0 | 258 | 739 | 200000 | 0 | 255 | 735
 
-| Sparkjava |4,1 | 290 |  |  | | | | | | 
+| Sparkjava |4,1 | 290 | 64477 | 9 | 877 | 227 | 110032 | 9 | 1078 | 180 
 
-| Spring Boot / Tomcat | 14 |6905 |  |  |  | | | | |  
+| Spring Boot / Tomcat | 14 |6905 | 200000 | 0 | 228 | 841 | 200000 | 0 | 232 | 814 
 
-| Spring Boot / Jetty | 13 | 6905 |  |  |  | | | | |  
+| Spring Boot / Jetty | 13 | 6905 | 197668 | 0 | 291 | 820 | 200000 | 0 | 229 | 817 
 
-| Spring Boot / Undertow | 14 | 6905 |  |  |  | | | | |  
+| Spring Boot / Undertow | 14 | 6905 | 200000 | 0 | 230 | 828 | 200000 | 0 | 226 | 824 
 
-| vertx |5,1 | 7250* |  |  | | | | | | 
+| vertx |5,1 | 7250* | 200000 | 0 | 196 | 939 | 200000 | 0 | 210 | 891 
 
 |===
 
