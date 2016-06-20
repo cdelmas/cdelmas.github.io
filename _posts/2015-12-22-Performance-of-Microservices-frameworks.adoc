@@ -4,6 +4,34 @@
 
 This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A-comparison-of-Microservices-Frameworks.html[Microservices Frameworks].
 
+== Introduction
+
+As promised, this is a little post about a benchmark I realized on microservices frameworks. It is not intended to be precise (do not trust the numbers), but gives a global idea of what you can have out-of-the-box with these libraries. To go further, you should read the documentation and eventually fine tune your app if necessary.
+
+== Conditions
+
+The framework / library is used as-is, without any tuning (again, you can probably obtain better raw performances with some configuration).
+
+The raw results are not really important, so I will only consider relative results. The most important is to run the benchmark with identical conditions, in order to have comparable results.
+
+If you want more precise and serious benchmarks, see https://www.techempower.com/benchmarks/.
+
+
+== Methodology
+
+The bench runs on a Windows machine, with a Java 8 update 92 JVM. The server JVM is booted at the beginning of each bench.
+
+The bench uses Gatling to run HTTP requests:
+
+* Get on the `/hello` endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 5 minutes). Response is a json-encoded POJO.
+* Post on a `/hello` endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 10 minutes). Payload is json, and decoded to a POJO.
+
+The results are the mean of three runs.
+
+== Results
+
+
+
 [options="header"]
 |===
 | Framework | Package size (MB) | Startup time (ms) 4+| GET (over 5 min) 4+| POST (over 10 min)
@@ -20,32 +48,31 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | Sparkjava |4,1 | 290 | 64477 | 9 | 877 | 227 | 110032 | 9 | 1078 | 180 
 
-| Spring Boot / Tomcat | 14 |6905 | 200000 | 0 | 228 | 841 | 200000 | 0 | 232 | 814 
+| Spring Boot / Tomcat | 14 |6905° | 200000 | 0 | 228 | 841 | 200000 | 0 | 232 | 814 
 
-| Spring Boot / Jetty | 13 | 6905 | 197668 | 0 | 291 | 820 | 200000 | 0 | 229 | 817 
+| Spring Boot / Jetty | 13 | 6905° | 197668 | 0 | 291 | 820 | 200000 | 0 | 229 | 817 
 
-| Spring Boot / Undertow | 14 | 6905 | 200000 | 0 | 230 | 828 | 200000 | 0 | 226 | 824 
+| Spring Boot / Undertow | 14 | 6905° | 200000 | 0 | 230 | 828 | 200000 | 0 | 226 | 824 
 
-| vertx |5,1 | 7250* | 200000 | 0 | 196 | 939 | 200000 | 0 | 210 | 891 
+| vertx |5,1 | 7250° | 200000 | 0 | 196 | 939 | 200000 | 0 | 210 | 891 
 
 |===
 
+° results are really different on my Linux laptop
 
-Some observations:
+== Observations
 
-* Under Unix, vertx is faster at startup (about 200ms)
+Vertx is really faster than all the competitors, moreover it is really strong under heavy load. Note that on my Linux laptop, it starts within 200ms (I didn't find the reason).
+
+Just behind is Spring Boot. Interestingly, whatever the HTTP connector (Tomcat, Jetty, Undertow) you choose, the final result is almost the same, Jetty being a (very little) bit less good. Again, Spring Boot starts very faster on my Linux laptop (about 2s, instead of 7!).
+
+To complete the podium, Restlet, using the Simple connector. Using Jetty or the internal connector isn't a good choice without configuration, it seems. Restlet is really faster to bootstrap.
+
+Finally, Spark is clearly the worst player, with only one third of the requests handled in the allowed time (for GET), and a mean time of 877 ms!
 
 
-Using Gatling to measure the performance
+Just a last thing, consider the size of the package: lighter is only 4 MB, heavier is 15!
 
-Methodology
+== Final word
 
-Get on a /hello endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 5 minutes).
-Post on a /hello endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 10 minutes).
-
-Response is json-encoded POJO
-Payload is json.
-
-Results
-
-mean, throughput, errors
+Thank you for reading.
