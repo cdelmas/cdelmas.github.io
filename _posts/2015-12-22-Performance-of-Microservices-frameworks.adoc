@@ -26,10 +26,9 @@ The bench uses Gatling to run HTTP requests:
 * Get on the `/hello` endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 5 minutes). Response is a json-encoded POJO.
 * Post on a `/hello` endpoint, with 200 users making 1000 requests each (total: 200000); a request is considered as failed if it exceeds 60s. The test is time boxed (limit: 10 minutes). Payload is json, and decoded to a POJO.
 
-The results are the mean of three runs.
+The results are the mean of three runs, extracted from the Gatling reports.
 
 == Results
-
 
 
 [options="header"]
@@ -62,7 +61,7 @@ The results are the mean of three runs.
 
 == Observations
 
-Vertx is really faster than all the competitors, moreover it is really strong under heavy load. Note that on my Linux laptop, it starts within 200ms (I didn't find the reason).
+Vertx is really the faster among all the competitors, moreover it is really strong under heavy load. Note that on my Linux laptop, it starts within 200ms (I didn't find the reason).
 
 Just behind is Spring Boot. Interestingly, whatever the HTTP connector (Tomcat, Jetty, Undertow) you choose, the final result is almost the same, Jetty being a (very little) bit less good. Again, Spring Boot starts very faster on my Linux laptop (about 2s, instead of 7!).
 
@@ -75,4 +74,4 @@ Just a last thing, consider the size of the package: lighter is only 4 MB, heavi
 
 == Final word
 
-Thank you for reading.
+Thank you for reading. Feel free to comment, and to fork the project here: https://github.com/cdelmas/microservices-perf.
