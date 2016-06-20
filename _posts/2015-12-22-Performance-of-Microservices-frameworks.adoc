@@ -10,13 +10,13 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | | | | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* | *_total_* | *_failed_* | *_mean (ms)_* | *_throughput (req/s)_* 
 
-| Dropwizard |15 | 1047  |  |  | | | | | | 
+| Dropwizard |15 | 1047  | 200000 | 0 | 274 | 685 | 200000 | 0 | 270 | 700
 
-| Restlet |4,2 | 110 |  |  | | | | | | 
+| Restlet |4,2 | 110 | 180000 | 196 | 300 | 590 | 200000 | 221 | 282 | 578
 
-| Restlet / Jetty | 5,8| 110 |  |  | | | | | | 
+| Restlet / Jetty | 5,8| 110 | 82926 | 12 | 702 | 277 | 186798 | 25 | 630 | 320
 
-| Restlet / Simple |4,5 | 110 |  |  | | | | | | 
+| Restlet / Simple |4,5 | 110 | 200000 | 0 | 258 | 739 | 200000 | 0 | 255 | 735
 
 | Sparkjava |4,1 | 290 |  |  | | | | | | 
 
@@ -26,12 +26,14 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 | Spring Boot / Undertow | 14 | 6905 |  |  |  | | | | |  
 
-| vertx |5,1 | 7250 |  |  | | | | | | 
+| vertx |5,1 | 7250* |  |  | | | | | | 
 
 |===
 
 
+Some observations:
 
+* Under Unix, vertx is faster at startup (about 200ms)
 
 
 Using Gatling to measure the performance
