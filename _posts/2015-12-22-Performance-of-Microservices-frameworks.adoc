@@ -6,13 +6,15 @@ This is the follow-up of my article about https://cdelmas.github.io/2015/11/01/A
 
 == Introduction
 
-As promised, this is a little post about a benchmark I realized on microservices frameworks. It is not intended to be precise (do not trust the numbers), but gives a global idea of what you can have out-of-the-box with these libraries. To go further, you should read the documentation and eventually fine tune your app if necessary.
+As promised, this is a little post about a benchmark I realized on microservices frameworks. 
+
+WARNING: It is not intended to be a precise (do not trust the numbers) benchmark. This post gives a global idea of what you can have out-of-the-box with these libraries. To go further, you should read the documentation and eventually fine tune your app if necessary.
 
 == Conditions
 
-The framework / library is used as-is, without any tuning (again, you can probably obtain better raw performances with some configuration).
+The framework / library is used as-is, without any tuning (again, you can probably obtain better performances with some configuration).
 
-The raw results are not really important, so I will only consider relative results. The most important is to run the benchmark with identical conditions, in order to have comparable results.
+The raw results are not really important (it depends on the hardware, network, ...), so I will only consider relative results. The most important is to run the benchmark with identical conditions, in order to have comparable results.
 
 If you want more precise and serious benchmarks, see https://www.techempower.com/benchmarks/.
 
